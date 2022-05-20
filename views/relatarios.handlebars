@@ -1,0 +1,387 @@
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        min-height:100vh;
+    }
+header{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+div.campos{
+    width: 100%;
+    height: 30%;
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+div.campos div.campo
+{
+    min-height: 100%;
+    min-width:89px;
+    padding: 0 10px;
+    padding-bottom: 5px;
+    border: 1px solid rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+div.campos div.campo input
+{
+    width:100%;
+}
+div.ir
+{
+    padding:10px;
+    height:auto;
+    display: flex;
+    justify-content: center;
+}
+div.ir button
+{
+    font-family: 'Fredoka', sans-serif;
+    cursor: pointer;
+    width: auto;
+    height:30px;
+    border: none;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+div.ir button:hover
+{ 
+    background-color: rgb(56, 56, 138);
+}
+#dados 
+{
+        overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+        margin: 0.5%;
+    width: 99%;
+    height: 350px;
+    border: 1px solid rgba(0,0,0,0.5);
+}
+#dados div
+{
+    margin: 5px 0;
+    padding: 0 10px;
+    
+}
+
+</style>
+
+
+<header>
+    <h1>Relatorios</h1>
+</header>
+<div class="campos">
+    <div class="campo">
+        <h2>Campo</h2>
+    <select id="campo">
+    <option value="Pagamentos">Pagamentos</option>
+    <option value="Vendas">Vendas</option>
+    <option value="Gastos">Gastos</option>
+</select>
+</div>
+<div class="campo">
+        <h2>Por</h2>
+    <select id="para">
+    <option value="clientes">clientes</option>
+    <option value="setor">setor</option>
+        <option value="data">data</option>
+
+</select>
+</div>
+<div class="campo">
+        <h2>Especificos</h2>
+    <input id="especifico" type="text" list="especificos">
+</div>
+<div class="campo">
+        <h2>mes</h2>
+  <select id="mes">
+    
+</select>
+</div>
+<div class="campo">
+        <h2>ano</h2>
+  <select id="ano">
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+</select>
+</div>
+</div>
+<div class="ir">
+    <button  onclick="gerarReloatorio()">fazer relatorio</button>
+</div>
+<button onclick="imprimir()">imprimir relatorio</button>
+<datalist id="especificos"></datalist>
+<div id="dados">
+<h2 id="valorTota">R$</h2></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+<!--principal-->
+<script>
+for(i=1;i<=12;i++)
+document.querySelector("#mes").innerHTML+=`
+    <option value="`+i+`">`+i+`</option>
+`
+ document.querySelector('#para').addEventListener('change',function(){
+     let para =  document.querySelector("#para")
+     if(para.value == 'clientes'){
+         document.querySelector("#especificos").innerHTML = ''
+        for(c of clients){
+            document.querySelector("#especificos").innerHTML+=`
+                <option value="`+c.nome+`">`+c.nome+`</option>
+            `
+        }   
+     }else{
+         document.querySelector("#especificos").innerHTML = ''
+        for(c of servicos){
+            document.querySelector("#especificos").innerHTML+=`
+                <option value="`+c.nome+`">`+c.nome+`</option>
+            `
+        }   
+     }
+
+ })
+let valor = 0
+
+
+    function gerarReloatorio(){
+        valor = 0
+        let campo = document.querySelector("#campo")
+        let para =  document.querySelector("#para")
+        let especifico =  document.querySelector("#especifico")
+        quantArecadou(campo,para,especifico)
+        if(campo.value == 'Pagamentos')
+            Pagamentos(para,especifico)
+        if(campo.value == 'Vendas')
+            Vendas(para,especifico)
+            especifico.value = ''
+    }
+    function Pagamentos(p,e){
+        console.log('paghamento')
+        if(p.value == 'clientes')
+        for(pagamento of pagamentos){
+            if(pagamento.client == e.value){
+            valor+=Number(pagamento.valorTotal)
+            document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
+                <h3>data feita: `+pagamento.dataPedido+`</h3>
+
+            </div>
+            `
+        }
+        }
+        else
+        if(p.value == 'data'){
+            let mes =  document.querySelector("#mes").value
+            let newMes;
+            if(mes.length == 1){
+                newMes = '0'+mes
+            }else{
+                newMes = mes
+            }
+            console.log(mes)
+        for(pagamento of pagamentos){
+           let Pmes =  pagamento.dataPedido[5]+pagamento.dataPedido[6]
+           console.log(Pmes,newMes)
+            if(Pmes == newMes){
+                  valor+=Number(pagamento.valorTotal)
+ document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
+                <h3>data feita: `+pagamento.dataPedido+`</h3>
+                <h3>para: `+pagamento.client+`</h3>
+            </div>
+            `
+        }
+        }
+        }else
+ document.querySelector("#dados").innerHTML +=`
+            <h2>pagamentos não tem setores</h2>
+            `    }
+    function Vendas(p,e){
+        //Por clientes
+        if(p.value == 'clientes'){
+        for(venda of vendas){
+            if(venda.cliente == e.value){
+                  valor+=Number(venda.valor)
+             document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do item: `+venda.valor+`</h2>
+                <h2>item: `+venda.servico+`
+                <h3>data feita: `+venda.dataCreate+`</h3>
+
+                <hr>
+
+            </div>
+            `
+        }
+        }
+        } else
+       //Por Data
+       if(p.value == 'data'){
+            let mes =  document.querySelector("#mes").value
+            let newMes;
+            if(mes.length == 1){
+                newMes = '0'+mes
+            }else{
+                newMes = mes
+            }
+            console.log(mes)
+        for(venda of vendas){
+           let Pmes =  venda.dataCreate[5]+venda.dataCreate[6]
+           console.log(Pmes,newMes)
+            if(Pmes == newMes){
+                                  valor+=Number(venda.valor)
+
+ document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do Pagamento: `+venda.valor+`</h2>
+                <h3>data feita: `+venda.dataCreate+`</h3>
+                
+                <h3>serviço: `+venda.servico+`
+                <h3>para: `+venda.cliente+`</h3>
+
+            </div>
+            `
+                }        
+                }
+        }else
+        for(venda of vendas){
+             console.log(venda.servico,e.value)
+            if(venda.servico == e.value){
+               console.log(venda.servico,e.value)
+            valor+=Number(venda.valor)
+             document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do item: `+venda.valor+`</h2>
+                <h3>data feita: `+venda.dataCreate+`</h3>
+                <h3>para: `+venda.cliente+`</h3>
+
+            </div>
+            `
+        }
+        }
+    }
+    
+    function quantArecadou(c,p,e){
+        let arrecadou = ''
+         let mes =  document.querySelector("#mes").value
+        if(p.value == 'clientes')
+        arrecadou+='o cliente '+e.value+" gastou em "+c.value
+         if(p.value == 'setor')
+        arrecadou+='o setor '+e.value+" gerou em "+c.value
+        if(p.value == 'data')
+        arrecadou+='o mes '+mes+" gerou em "+c.value
+
+
+document.querySelector("#dados").innerHTML ='<h2>'+arrecadou+'</h2><h2 id="valorTota">R$'+valor+'</h2>'
+    }
+</script>
+<!--caregar banco de dados -->
+<script>
+     let servicos = []
+  let clients = []
+  let vendas = []
+  let pedidos = []
+  let pagamentos = []
+  //clients
+  {{#each client}}
+    clients.push({
+      nome: ( '{{dataValues.nome}}'),
+      email:('{{dataValues.email}}'),
+      telefone: ('{{dataValues.telefone}}'),
+      endereco:('{{dataValues.endereco}}'),
+      cep:('{{dataValues.cep}}'),
+      cpf:('{{dataValues.cpf}}'),
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //serviços
+  {{#each servico}}
+    servicos.push({
+      nome:'{{dataValues.nome}}',
+      descricao:'{{dataValues.descricao}}',
+      valor:'{{dataValues.valorUnitario}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Vendas
+  {{#each vendas}}
+    vendas.push({
+      cliente:'{{dataValues.client}}',
+      servico:'{{dataValues.nomeServico}}',
+      quantidade:'{{dataValues.quantidade}}',
+      valor:'{{dataValues.valor}}',
+      dataCreate:'{{dataValues.dataCreate}}',
+      dataEntrega:'{{dataValues.dataEntrega}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Pagamentos
+  {{#each pagamento}}
+    pagamentos.push({
+      client: ( '{{dataValues.client}}'),
+      dataPedido:('{{dataValues.dataPedido}}'),
+      valorTotal: ('{{dataValues.valorTotal}}'),
+      tipoPagamento:('{{dataValues.tipoPagamento}}'),
+      formaPagamneto:('{{dataValues.formaPagamneto}}'),
+      valorParcelado:'{{dataValues.valorParcelado}}',
+      Vencimento:'{{dataValues.Vencimento}}',
+    })
+  {{/each}}
+    for(c of clients){
+            document.querySelector("#especificos").innerHTML+=`
+                <option value="`+c.nome+`">`+c.nome+`</option>
+            `
+        }   
+</script>
+<script>
+  function imprimir(){
+       var conteudo = document.getElementById('dados').innerHTML,
+    tela_impressao = window.open('about:blank');
+
+tela_impressao.document.write(conteudo);
+tela_impressao.window.print();
+tela_impressao.window.close();
+  }
+    function draw(){
+        document.querySelector('#valorTota').innerHTML="R$"+valor
+    }
+</script>
+<!--alterar-->
+<script>
+    document.querySelector('select#para').addEventListener('change',function(){
+        if(document.querySelector('select#para').value == 'data'){
+            document.querySelector('input').style.background='red'
+             document.querySelector('select#ano').style.background='transparent'
+              document.querySelector('select#mes').style.background='transparent'
+        }else{
+            document.querySelector('input').style.background='transparent'
+             document.querySelector('select#ano').style.background='red'
+              document.querySelector('select#mes').style.background='red'
+        }
+        if(document.querySelector('select#para').value == 'setor'&document.querySelector('select#campo').value == 'Pagamentos'){
+             document.querySelector('select#campo').style.background='red'
+        }else{
+                         document.querySelector('select#campo').style.background='transparent'
+        }
+    
+    })
+</script>

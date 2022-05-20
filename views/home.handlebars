@@ -1,0 +1,1126 @@
+<style>
+
+    body{
+    
+  min-height: 100vh;
+  background-color: #2E66FF;
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+}
+.navigation{
+position:absolute;
+width:70px;
+top: 20%;
+left: 10px;
+height:auto;
+background:#fff;
+border-radius: 15px;
+box-shadow:0 15px 25px rgba(0,0,0,0.5);
+display:flex;
+justify-content:right  ;
+padding-bottom:  20px;
+
+
+}
+.navigation ul{
+margin:0;
+width:65px;
+top:0;
+height:100%;
+padding-top:15px;
+padding-right:4px;
+
+}
+.navigation ul li{
+position:relative;
+list-style:none;
+border-radius:10px;
+width:60px;
+height:45px;
+border: 4px solid #fff;
+box-sizing:border-box;
+margin-top:5px;
+display:flex;
+justify-content:center;
+cursor: pointer;
+}
+.navigation ul li:hover{
+background:#2E66FF;
+}
+.navigation ul li  ion-icon{
+position:relative;
+display:block;
+line-height:60px;
+text-align:center;
+margin-top:10px;
+}
+.navigation ul li:hover ion-icon{
+color:white;
+}
+.navigation ul li .title{
+position:absolute;
+left:70px;
+top:10px;
+display:block;
+background:#fff;
+width:auto;
+padding:5px 10px ;
+transform: translateY(-15%) translateX(-5px);
+border-radius:6px;
+box-shadow:0 5px 15px rgba(0,0,0,0.5);
+transition:0.5s;
+opacity:0
+}
+.navigation ul li:hover .title{
+  opacity:0.8
+}
+#containe-principal{
+  position:absolute;
+  left: 10%;
+  width: 90%;
+  height: 100%;
+  background:#fff;
+  border-radius:50px 0 0 0 ;
+  box-shadow:-5px -5px 15px rgba(0,0,0,0.5);
+
+  
+}
+#containe-principal header{
+  border-bottom: 2px solid rgb(151, 151, 151);
+  height: 10%;
+  padding:10px
+}
+#containe-principal header h1{
+  float:left;
+}
+#containe-principal header h3{
+  float:right;
+}
+#containe-principal header button{
+float: right;
+margin: 10px;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+font-size: 28px;
+padding-top: 7px;
+padding-left: 6px;
+background:#BABABA;
+color: #fff;
+border:none;
+cursor: pointer;
+transition:0.5s;
+}
+#containe-principal header button:hover{
+  background:#07F52E;
+  color:black;
+  border-radius: 15px;
+}
+.header-iterage{
+  border-bottom: 2px solid rgb(151, 151, 151);
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.header-iterage input{
+  margin:10px 0px;
+  width: 200px;
+  height: 20px;
+}
+
+.header-iterage button{
+  height: 25px;
+}
+
+.pessoas-cadastradas{
+width: 80%;
+height: 70%;
+float:left;
+border:2px solid #ccc;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+flex-direction: column;
+
+overflow-y: scroll;
+margin-left: 5%;
+margin-top: 3%;
+border-radius: 10px;
+}
+
+.pessoas-cadastradas::-webkit-scrollbar{
+width: 20px;
+border: 2px solid #ccc;
+padding: 10px;
+border-radius: 10px;
+}
+.pessoas-cadastradas::-webkit-scrollbar-thumb{
+background:#2e66fe;
+border-radius: 10px;
+width: 10px;
+}
+.pessoas-cadastradas div{
+width: 90%;
+height: revert;
+background:transparent;
+border:2px solid #ccc;
+margin:  15px 0 ;
+display:flex;
+border-radius: 10px;
+color:#979797;
+cursor: pointer;
+transition:0.5s;
+}
+.pessoas-cadastradas div.mostraInfo{
+height:auto;
+flex-direction: row;
+flex-wrap: wrap;
+align-content: flex-start;
+transition:0.5s;
+}
+.pessoas-cadastradas div.mostraInfo ion-icon.lixeira{
+font-size:60px ;
+height: auto;
+transition:0.5s;
+}
+.pessoas-cadastradas div.mostraInfo ion-icon.lixeira:hover{
+color: red
+}
+.pessoas-cadastradas div ion-icon.document:hover{
+color:red
+}
+.pessoas-cadastradas div.mostraInfo div{
+width: 100%;
+height: 60%;
+}
+.pessoas-cadastradas div.mostraInfo div h3{
+float:left;
+width: 100%;
+margin-left: 6px;
+}
+.pessoas-cadastradas div:hover ion-icon.aparecer{
+opacity:1;
+transition:0.5s;
+}
+.pessoas-cadastradas div ion-icon{
+font-size: 30px;
+margin-right: 10px;
+}
+.pessoas-cadastradas div ion-icon.aparecer{
+opacity:0;
+}
+.pessoas-cadastradas div ion-icon.red:hover{
+color: red;
+}
+.pessoas-cadastradas div ion-icon.blue:hover{
+color: #2E66FF;
+}
+.pessoas-cadastradas div button{
+border:none;
+background:transparent;
+color: #979797;;
+}
+.pessoas-cadastradas div ion-icon.green:hover{
+color:#07F52E;
+}
+.pessoas-cadastradas div h3{
+margin:0;
+}
+.pessoas-cadastradas div h4{
+margin:4px 10px;
+}
+
+.data{
+position:absolute;
+right: 10px;
+top: 0;
+}
+.cliente{
+margin-top: 50px;
+margin-bottom: 200px;
+}
+#dados{
+  width:100%;
+  height:80%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #979797;
+
+}
+#dados::-webkit-scrollbar{
+width: 20px;
+border: 2px solid #ccc;
+padding: 10px;
+border-radius: 10px;
+}
+#dados::-webkit-scrollbar-thumb{
+background:#2e66fe;
+border-radius: 10px;
+width: 10px;
+}
+#dados h2{
+    z-index: 2;
+}
+#dados div{
+content:'';
+  position:absolute;
+   background:rgba(100, 100, 100, 0.5);
+  border-radius:50%;
+}
+#dados div.circle-1{
+  
+  width: 100px;
+  top: 52%;
+    left: 35%;
+  height: 100px;
+ 
+
+  }
+  #dados div.circle-3{
+ 
+  width: 50px;
+  top: 56%;
+    left: 53%;
+  height: 50px;
+  
+
+  }
+  #dados div.circle-2{
+  
+  width: 100px;
+  top: 60%;
+    left: 41%;
+  height: 100px;
+ 
+  }
+  #dados ion-icon{
+    font-size:40px;
+    color: #e9e9f0;
+
+  }
+  div.fosco{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+  align-items: center;
+  justify-content: center 
+    }
+    div.fosco div{
+      width:50%;
+      height:50%;
+      border-radius:10px;
+      display: flex;
+      justify-content: center ;
+      align-items: center;
+    }
+     div.fosco div button
+     {
+       height:35px;
+       margin: 0px 30px;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+
+     }
+          div.fosco div button:hover
+          {
+            opacity: 0.7;
+          }
+    .b-branco{
+      background-color: white;
+    }
+    .b-red{
+      background-color: red;
+    }
+    .b-green{
+      background-color: greenyellow;
+    }
+    .b-cinza{
+      background-color: rgb(161, 161, 161);
+    }
+</style>
+
+ <div id="containe-principal">
+        
+        <header>
+         <h1>home</h1>
+        </header>
+        <div class="header-iterage">
+        <input type="text" id="pesquisar-pessoa" placeholder="pesquisar servico" class="home" list="todoServico">
+        <button  onclick="pesquisarServico()"type="submit">
+        <ion-icon name="search-outline"></ion-icon>
+        </button>
+        </div>
+        <dvi class="pessoas-cadastradas"  >
+        </dvi>
+        
+        <datalist id="todaPessoa"></datalist>
+            
+    </div>
+    
+    <div class="navigation">
+        <ul>
+          <li id="home" onclick="mudarconteudo(this)">
+              <ion-icon name="home-outline"></ion-icon>
+              <span  class="title">home</span>
+              
+          </li>
+          
+          <li id="pessoas" onclick="mudarconteudo(this)" >
+            <ion-icon name="people-outline"></ion-icon>
+            <span  class="title">pessoas</span>
+             
+        </li>
+        <li id="serviços" onclick="mudarconteudo(this)">
+            <ion-icon name="hammer-outline"></ion-icon>
+            <span  class="title">serviços</span>
+        </li>
+        <li id="vendas" onclick="mudarconteudo(this)">
+            <ion-icon name="briefcase-outline"></ion-icon>
+            <span  class="title">vendas</span>
+        </li>
+        <li id="pagamentos" onclick="mudarconteudo(this)">
+          <ion-icon name="card-outline"></ion-icon>
+            <span  class="title">pagamentos</span>
+        </li>
+        <li id="empresa" onclick="mudarconteudo(this)">
+          <ion-icon name="person-circle-outline"></ion-icon>
+            <span  class="title">empresa</span>
+        </li>
+         <li id="empresa" onclick="mudarconteudo(this)">
+           <form action="/relatorios" method="post">
+             <button style="border:none;background:transparent; " type="submit">
+          <ion-icon name="reader-outline" style="font-size: 131%;"></ion-icon>
+          </button>
+          </form>
+            <span  class="title">relatorios</span>
+        </li>
+        
+        </ul>
+    </div>
+
+
+    <!--icones-->    
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!--principal-->
+<script>
+  let servicos = []
+  let clients = []
+  let vendas = []
+  let pedidos = []
+  let pagamentos = []
+  let empresa ;
+  let container = [
+//home    
+{
+    nome:'home',
+    conteudo:`
+    <header>
+    <h1>home</h1>
+</header>
+<div class="header-iterage">
+<input type="text" id="pesquisar-pessoa" placeholder="pesquisar servico" class="home" list="todoServico">
+<button  onclick="pesquisarServico()"type="submit">
+<ion-icon name="search-outline"></ion-icon>
+</button>
+</div>
+
+<dvi class="pessoas-cadastradas">
+
+</dvi>
+<datalist id="todaPessoa"></datalist>
+    
+    `
+},
+//pessoas
+{
+    nome:'pessoas',
+    conteudo:`
+    <header>
+    <h1>pessoas cadastradas</h1>
+    <form action="/cadastraPessoa" method="POST">
+    <button type="submit">
+        <ion-icon name="add-outline"></ion-icon>
+    </button>
+    </form>
+    <h3>cadastrar pessoa</h3>
+</header>
+<div class="header-iterage">
+<input type="text" id="pesquisar-pessoa" placeholder="pesquisar pessoa" autocomplete="off" list="todaPessoas">
+<button  onclick="prcurarPessoa()"type="submit">
+<ion-icon name="search-outline"></ion-icon>
+</button>
+</div>
+
+<dvi class="pessoas-cadastradas">
+
+</dvi>
+<datalist id="todaPessoas"></datalist>
+    `
+},
+//serviços
+{
+    nome:'serviços',
+    conteudo:`
+    <header>
+    <h1>serviços cadastradas</h1>
+    <form action="/cadastraServico" method="POST">
+    <button type="submit">
+        <ion-icon name="add-outline"></ion-icon>
+    </button>
+    <h3>cadastrar serviço</h3>
+</header>
+<div class="header-iterage">
+<input type="text" id="pesquisar-servico" placeholder="pesquisar servico" list="todoServico">
+<button  onclick="pesquisarServico()"type="submit">
+<ion-icon name="search-outline"></ion-icon>
+</button>
+</div>
+
+<dvi class="pessoas-cadastradas">
+
+</dvi>
+<datalist id="todoServico"></datalist>
+    
+    `
+},
+//vendas
+{
+  nome:'vendas',
+    conteudo:` <header>
+    <h1>todas as vendas</h1>
+
+</header>
+<div class="header-iterage">
+<input type="text" id="pesquisar-venda" placeholder="pesquisar venda" list="todasvendas">
+<button  onclick="pesquisarServico()"type="submit">
+<ion-icon name="search-outline"></ion-icon>
+</button>
+</div>
+
+<dvi class="pessoas-cadastradas">
+
+</dvi>
+<datalist id="todasvendas"></datalist>`
+},
+//pagamentos
+{
+  nome:'pagamentos',
+    conteudo:` <header>
+    <h1>pagamentos</h1>
+
+</header>
+<div class="header-iterage">
+<input type="text" id="pesquisar-pagamento" placeholder="pesquisar pagamento" list="todaspagamento">
+<button  onclick="pesquisarServico()"type="submit">
+<ion-icon name="search-outline"></ion-icon>
+</button>
+</div>
+
+<dvi class="pessoas-cadastradas">
+
+</dvi>
+<datalist id="todaspagamento"></datalist>`
+},
+//empresa
+{
+  nome:'empresa',
+    conteudo:` <header>
+    <h1>dados da empresa</h1>
+<form action="/cadastraEmpresa" method="POST">
+    <button type="submit">
+      <ion-icon name="pencil-outline"></ion-icon>   
+ </button>
+    <h3>editar dados</h3>
+</header>
+
+<div id="dados"></div>
+
+</dvi>
+<datalist id="todaspagamento"></datalist>`
+},
+]
+
+function prcurarPessoa(){
+  let input = document.querySelector('#pesquisar-pessoa')
+  for(pessoa of clients){
+    if(input.value == pessoa.nome)
+    document.querySelector('.pessoas-cadastradas').innerHTML = itemPessoa(pessoa)
+  }
+input.value = ''
+}
+
+function mostraInfoPessoa(i){
+  let id = Number(i.id)
+  pessoa = clients[Number(id)]
+  console.log(clients[Number(id)])
+  if(i.style.height == 'revert'){
+  console.log('esconder')
+  i.style.height = 'auto'
+  i. style.justifyContent = "";
+      i.style.alignItems = ""
+      i.style.flexDirection = ""
+  i.innerHTML = `
+  <ion-icon name="person-circle-outline"></ion-icon>
+<h3>`+pessoa.nome+`</h3><br>
+<h4>telefone: `+pessoa.telefone+`</h4>
+<form action="/deletPessoa/`+pessoa.id+`" method="post">
+<button>
+  <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
+</button>
+</form>
+
+<form action="/cadastraPedido" method="post">
+<button type="submit">
+<ion-icon name="hammer-outline" class="aparecer blue" id="`+pessoa.nome+`" ></ion-icon>
+</button>
+</form>`;
+  }else{
+    console.log('adicionar')
+      i.style.display = "flex"
+      i. style.justifyContent = "flex-start";
+      i.style.alignItems = "flex-start"
+      i.style.flexDirection = "column"
+      i.style.height = 'revert'
+      i.innerHTML = `
+      <h2>`+pessoa.nome+`</h2>
+      <h3>telefone: `+pessoa.telefone+`</h3><br>
+      <h3>email: `+pessoa.email+`</h3><br>
+      <h3>endereço: `+pessoa.endereco+`</h3><br>
+      <h3>cep: `+pessoa.cep+`</h3><br>
+      <h3>cpf: `+pessoa.cpf+`</h3><br>
+      `
+  }
+  
+}
+function mudarconteudo(i){
+    for(item of container){
+        if(item.nome == i.id){
+            document.getElementById('containe-principal').innerHTML = item.conteudo;
+           if(i.id == 'pessoas'){
+                colocarPessoas();
+            }
+            if(i.id == 'serviços')
+            colocarSevicos();
+            if(i.id == 'home')
+            colocarPedidos()
+             if(i.id == 'vendas')
+            mostraAllPedidos()
+            if(i.id == 'pagamentos')
+            colocarPagamentos()
+            if(i.id == 'empresa')
+             colocarDadosEmpresa()
+
+        }
+    }
+}
+function colocarDadosEmpresa(){
+  if(empresa !=null){
+     document.querySelector('#dados').innerHTML=`
+     <h1 style="color:black">`+empresa.nome+`</h1>
+     <h2>endereço: `+empresa.endereco+`</h2>
+     <h2>cidade: `+empresa.cidade+`</h2>
+     <h2>cnpj: `+empresa.cnpj+`</h2>
+     <h2>telefone: `+empresa.telefone+`</h2>
+     
+     `
+  }else{
+    document.querySelector('#dados').innerHTML=`
+     <h2>cadastra dados da empresa</h2>
+    <div class="circle-1"></div>
+    <div class="circle-2"></div>
+    <div class="circle-3"></div>
+    <form action="/cadastraEmpresa" method="POST">
+    <button style="border:none; background:rgba(0,0,0,0.2); border-radius:10px; cursor:pointer;"type="submit">
+    <ion-icon name="business-outline"></ion-icon>
+    </button>
+    </form>
+    `
+  }
+}
+function colocarPagamentos(){
+  for(pagamento of pagamentos){
+    document.querySelector('.pessoas-cadastradas').innerHTML +=`
+    <div class="">
+          <ion-icon name="card-outline"></ion-icon>
+     <h3>`+pagamento.client+`</h3><br>
+     <h4>valor: R$`+pagamento.valorTotal+`,00</h4>
+     <h4>Vencimento:`+pagamento.Vencimento+`</h4>
+    </div>
+    `
+  }
+}
+function colocarPessoas(){
+
+  for(let pessoa of clients ){
+    document.querySelector('.pessoas-cadastradas').innerHTML +=itemPessoa(pessoa)
+        
+        document.querySelector('#todaPessoas').innerHTML+=`
+        <option  value="`+pessoa.nome+`"></option>
+        `
+  }
+}
+function colocarSevicos(){
+    document.querySelector('.pessoas-cadastradas').innerHTML = '';
+   
+    for(item of servicos){
+     document.querySelector('.pessoas-cadastradas').innerHTML += `
+     <div>
+     <ion-icon name="hammer-outline"></ion-icon>
+     <h3>`+item.nome+`</h3><br>
+     <h4>valor: R$`+item.valor+`</h4>
+    
+     <button onclick="deletarServico(`+item.id+`)">
+     <ion-icon  name="trash-outline" class="red aparecer"></ion-icon>
+     </button>
+     
+     </div>
+     
+     `
+    }
+}
+ function  deletarServico(id){
+document.querySelector('body').innerHTML+=`
+<div class="fosco">
+<div class="b-branco">
+  <h1>deseja deletar?</h1>
+  <form action="/deletServico/`+id+`" method="POST">
+<button class="b-red">deletar</button>
+</form>
+<button class="b-cinza" onclick="desligarFosco()">cancelar</button>
+
+</div>
+</div>
+`
+}
+function desligarFosco(){
+document.querySelector('.fosco').remove()
+
+}
+function converterVendas(){
+  for(pagamento of pagamentos){
+if(pagamento.tipoPagamento == 'parcela'){
+    pagamento.Vencimento = Array(pagamento.Vencimento)
+  } 
+ }
+}
+let ver = 'dataPagamento'
+function dataPagamento(){
+  for(pagamento of pagamentos){
+   if(pagamento.tipoPagamento == 'parcela'){
+    let vencimentos = []
+  let text = pagamento.Vencimento
+  let newitem =''
+ for(i=0;i<text.length;i++){
+   if(text[i] ==','){
+     vencimentos.push(newitem)
+     newitem = ''
+   }else{
+     newitem+=text[i]
+   }
+ }
+   for(vencimento of vencimentos){
+       var data = new Date();
+  var dia     = data.getDate();
+  var mes     = data.getMonth()+1;
+  var ano    = data.getFullYear();
+  if(vencimento == dia+'/'+mes+'/'+ano){
+     Swal.fire({
+    icon: 'info',
+  title: 'pagamento!',
+  text: 'temos um pagamento de '+pagamento.client+' que a data de vencimento é hoje',
+  confirmButtonText: 'ok'
+  })
+  }
+   }
+   
+   }else{
+      var data = new Date();
+  var dia     = data.getDate();
+  var mes     = data.getMonth()+1;
+  var ano    = data.getFullYear();
+  
+  newdia = mes<10?String('0'+mes):mes;
+  hoje = ano+'-'+newdia+'-'+dia 
+     if( pagamento.Vencimento ==hoje){
+        
+         Swal.fire({
+    icon: 'info',
+  title: 'pagamento!',
+  text: 'temos um pagamento de '+pagamento.client+' que a data de vencimento é hoje',
+  confirmButtonText: 'ok'
+}).then((result) => {
+
+  if (result.isConfirmed) {
+     ver = "entrega"
+  }
+  })
+
+     }
+   }
+   }
+  ver = "entrega"
+}
+
+function itemPessoa(i){
+    let nome = i.nome
+return `<div ondblclick="mostraInfoPessoa(this)" id="`+clients.indexOf(i)+`">
+<ion-icon name="person-circle-outline"></ion-icon>
+<h3>`+i.nome+`</h3><br>
+<h4>telefone: `+i.telefone+`</h4>
+<form action="/deletPessoa/`+i.id+`" method="post">
+<button>
+  <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
+</button>
+</form>
+
+<form action="/cadastraPedido?id=`+i.id+`" method="post">
+<button type="submit">
+<ion-icon name="hammer-outline" class="aparecer blue" id="`+i.nome+`" ></ion-icon>
+</button>
+</form>
+</div>`
+}
+
+</script>
+<!--gerar pedidos-->
+<script>
+  function moudePedido(i){
+    return{
+      cliente:i.cliente,
+      dataCreate:i.dataCreate,
+      dataEntrega:i.dataEntrega,
+      servicos:[],
+      id:i.id,
+    }
+  }
+function colocarVendas(){
+  for(venda of vendas){
+    if(pedidos.length >0){
+     for(pedido of pedidos){
+       if(pedido.cliente == venda.cliente&
+       pedido.dataEntrega == venda.dataEntrega&
+       pedido.dataCreate ==venda.dataCreate){
+         pedido.servicos.push(venda.servico)
+       }else{
+         for(p of pedidos){
+           if(p.cliente == venda.cliente &p.dataCreate == venda.dataCreate){
+            
+           }else{
+           pedidos.push(moudePedido(venda))
+       
+           break; 
+           }
+         }
+       }
+     }
+    }else{
+
+      pedidos.push(moudePedido(venda))
+      colocarVendas()
+      break;
+    }
+  }
+  
+ pedidosIguais()
+}
+function pedidosIguais(){
+  for(pedido of pedidos){
+    for(p of pedidos){
+      if(p.cliente == pedido.cliente &p.dataCreate == pedido.dataCreate & p.dataEntrega == pedido.dataEntrega){
+        if(p.servicos != pedido.servicos)
+          if(p.servicos.length>pedido.servicos.length){
+            pedidos.splice(pedidos.indexOf(pedido),1)
+          }else{
+             pedidos.splice(pedidos.indexOf(p),1)
+          }
+        
+      }
+    }
+  }
+}
+function colocarPedidos(){
+      let numeros = ['1','2','3','4','5','6','7','8','9','0']
+
+  for(pedido of pedidos){
+let dataEntrega =pedido.dataEntrega;
+  
+
+  var data = new Date();
+  var dia     = data.getDate();
+  var mes     = data.getMonth()+1;
+  var ano    = data.getFullYear();
+
+  let newAno = '';
+  let newMes = '';
+  let newDia='';
+for(i = 0;i<dataEntrega.length;i++){
+  if(i<4)
+    newAno+=dataEntrega[i]
+  if(i>4&i<7)
+    newMes+=dataEntrega[i]
+  if(i>7)
+    newDia+=dataEntrega[i]
+}
+let newataEntrega = newDia+'/'+newMes+'/'+ newAno
+if(newAno >= ano)
+ if(newMes >=mes){
+if(newMes == mes&newDia>=dia)
+    document.querySelector('.pessoas-cadastradas').innerHTML +=`
+    <div id="`+pedidos.indexOf(pedido)+`" ondblclick="mostraServicoDoPedido(this)">
+      <h3>pedido para: `+pedido.cliente+`</h3>
+      <h4> data de entrga: `+newataEntrega+`</h4>
+      <form action="/cadastraPagmento?id=`+pedido.id+`" method="POST">
+      <button type="submit">
+        <ion-icon name="cash-outline" class="green aparecer"></ion-icon>
+      </button>
+      </form>
+      <form action="/ordenServico?id=`+pedido.id+`" method="POST">
+      <button type="submit" title="ordende serviço">
+        <ion-icon name="document-text-outline" class="aparecer" ></ion-icon>
+      </button>
+      </form>
+ 
+    </div>
+    
+    `
+    else
+    if(newMes > mes)
+    document.querySelector('.pessoas-cadastradas').innerHTML +=`
+    <div id="`+pedidos.indexOf(pedido)+`" ondblclick="mostraServicoDoPedido(this)">
+      <h3>pedido para: `+pedido.cliente+`</h3>
+      <h4> data de entrga: `+newataEntrega+`</h4>
+      <form action="/cadastraPagmento?id=`+pedido.id+`" method="POST">
+      <button type="submit">
+        <ion-icon name="cash-outline" class="green aparecer"></ion-icon>
+      </button>
+      </form>
+ 
+    </div>
+    
+    `
+ }
+ 
+  }
+}
+function mostraServicoDoPedido(i){
+   let id = Number(i.id)
+  if(i.style.height != "revert"){
+  i.style.height = "revert";
+
+  i. style.justifyContent = "flex-start";
+  i.style.alignItems = "flex-start"
+i.style.flexDirection = "column"
+
+  
+  for(let item of pedidos[id].servicos){
+  i.innerHTML+=`
+  <h3>`+item+`</h3><br>
+  `
+  }
+  }else{
+  i.style.flexDirection = "row"
+     i.style.height = "auto"
+     i.innerHTML = `
+      <h3>Pedido para: `+pedidos[id].cliente+`</h3>
+      <h4> data de entrga: `+pedidos[id].dataEntrega+`</h4>
+            <form action="/cadastraPagmento?id=`+pedidos[id].id+`" method="POST">
+      <button type="submit">
+        <ion-icon name="cash-outline" class="green aparecer"></ion-icon>
+      </button>
+      </form>
+      <form action="/ordenServico?id=1" method="POST">
+      <button type="submit" title="ordende serviço">
+        <ion-icon name="document-text-outline" class="aparecer md hydrated" role="img" aria-label="document text outline"></ion-icon>
+      </button>
+      </form>
+      `
+  }
+}
+function mostraAllPedidos(){
+for(pedido of pedidos)
+ document.querySelector('.pessoas-cadastradas').innerHTML +=`
+    <div id="`+pedidos.indexOf(pedido)+`" ondblclick="mostraServicoDoPedido(this)">
+      <h3> `+pedido.cliente+`</h3>
+      <h4> data de entrga: `+pedido.dataEntrega+`</h4>
+      <form action="/cadastraPagmento?id=`+pedido.id+`" method="POST">
+      <button type="submit">
+        <ion-icon name="cash-outline" class="green aparecer"></ion-icon>
+      </button>
+      </form>
+      <form action="/ordenServico?id=1" method="POST">
+      <button type="submit" title="ordende serviço">
+        <ion-icon name="document-text-outline" class="aparecer md hydrated" role="img" aria-label="document text outline"></ion-icon>
+      </button>
+      </form>
+    </div>
+    
+    `
+}
+</script>
+<!--tamanho de tela-->
+<script>
+    var windowWidth = window.innerWidth;
+  if(windowWidth <= 650){
+celular( )
+  }else{
+    console.log('computador')
+  }
+  function celular(){
+     let container = document.querySelector('#containe-principal');
+    let controles = document.querySelector('.navigation')
+    let  comTitle = document.querySelectorAll('.navigation ul li .title') 
+    let ul = document.querySelector('.navigation ul')
+    let input  = document.querySelector("#pesquisar-pessoa")
+    //controles
+  controles.style.width = "100%";
+  controles.style.height ="100px"
+  controles.style.position = "fixed";
+  controles.style.top = "85%";
+  controles.style.left ="0";
+  // box-shadow:
+  controles.style.boxShadow = "0 0px 15px rgba(0,0,0,0.5);"
+  controles.style.borderRadius = "0"
+  //ul
+  ul.style.display = "flex";
+  ul.style.justifyContent = "center"
+  ul.style.alignItems =  "center"
+  ul.style.width = "100%"
+  ul.style.height = "50%"
+  //title
+
+  //container
+  container.style.left ="0";
+  container.style.width = "100%"
+  container.style.height = "85%"
+  container.style.borderRadius = "0"
+  //input
+  input.style.marginLeft = "10px"
+  
+  var index = 0, length = comTitle.length;
+for ( ; index < length; index++) {
+    comTitle[index].style.left = "-1px"
+  comTitle[index].style.top="-80%"
+  
+}
+}
+</script>
+<!--iniciar-->
+<script>
+function setup(){
+  
+  dataPagamento()
+  colocarPedidos()
+  converterVendas()
+
+}
+function draw(){
+  
+  if(ver == 'entrega'){
+  mostraVendasEntrgas()
+  console.log('')
+  }
+}
+
+</script>
+<!--caregar banco de dados -->
+<script>
+  //clients
+  {{#each client}}
+    clients.push({
+      nome: ( '{{dataValues.nome}}'),
+      email:('{{dataValues.email}}'),
+      telefone: ('{{dataValues.telefone}}'),
+      endereco:('{{dataValues.endereco}}'),
+      cep:('{{dataValues.cep}}'),
+      cpf:('{{dataValues.cpf}}'),
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //serviços
+  {{#each servico}}
+    servicos.push({
+      nome:'{{dataValues.nome}}',
+      descricao:'{{dataValues.descricao}}',
+      valor:'{{dataValues.valorUnitario}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Vendas
+  {{#each vendas}}
+    vendas.push({
+      cliente:'{{dataValues.client}}',
+      servico:'{{dataValues.nomeServico}}',
+      quantidade:'{{dataValues.quantidade}}',
+      valor:'{{dataValues.valor}}',
+      dataCreate:'{{dataValues.dataCreate}}',
+      dataEntrega:'{{dataValues.dataEntrega}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Pagamentos
+  {{#each pagamento}}
+    pagamentos.push({
+      client: ( '{{dataValues.client}}'),
+      dataPedido:('{{dataValues.dataPedido}}'),
+      valorTotal: ('{{dataValues.valorTotal}}'),
+      tipoPagamento:('{{dataValues.tipoPagamento}}'),
+      formaPagamneto:('{{dataValues.formaPagamneto}}'),
+      valorParcelado:'{{dataValues.valorParcelado}}',
+      Vencimento:'{{dataValues.Vencimento}}',
+    })
+  {{/each}}
+  {{#each empresa}}
+  empresa = {
+    nome: '{{dataValues.nome}}',
+    logo:('{{dataValues.logo}}'),
+    cidade:'{{dataValues.cidade}}',
+    endereco:'{{dataValues.endereco}}',
+    cnpj:'{{dataValues.cnpj}}',
+    telefone:'{{dataValues.telefone}}'
+  }
+  {{/each}}
+</script>
+<script>
+  colocarVendas()
+  function mostraVendasEntrgas(){
+    console.log('')
+for(venda of vendas){
+  var data = new Date();
+  var dia     = data.getDate();
+  var mes     = data.getMonth()+1;
+  var ano    = data.getFullYear();
+  mes = String(mes)
+
+if(mes.length == 1){
+mes = '0'+mes
+}
+
+  let hoje = ano+'-'+mes+'-'+dia
+
+  
+  if(venda.dataEntrega == hoje){
+  Swal.fire({
+    icon: 'info',
+  title: 'Vendas!',
+  text: 'temos uma venda de '+venda.cliente+' que a data de entrega é hoje',
+  confirmButtonText: 'ok'
+})
+}
+ 
+}
+ver = ''
+  }
+  
+</script>

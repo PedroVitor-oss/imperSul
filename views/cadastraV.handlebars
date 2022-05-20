@@ -1,0 +1,222 @@
+<style>
+    body{
+        background-color: #2E66FF;
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+        outline: none;
+    }
+    button{
+        font-family: 'Fredoka', sans-serif;
+        margin-top: 10px;
+    background: yellow;
+    border: 2px solid yellow;
+    color: black;
+    border-radius: 10px;
+    height: 30px;
+    }
+    #valorTotal{
+        height: 100px;
+        background: transparent;
+        font-size: 30px;
+        text-align: center;
+        color: white;
+}
+        
+    }
+</style>
+
+
+<form onsubmit="cadastrar()">
+    <h3>clinete</h3>
+    <input type="text" name="client" id="client" autocomplete="off" placeholder="digite nome do cliente" list="clients" required>
+    <h3>serviço</h3>
+    <input type="text" name="servico" autocomplete="off"  id="servico" placeholder="" list="servicos" required>
+    <h3>quantidade</h3>
+    <input type="text" id="quantidade" autocomplete="off" name="quantidade" placeholder="">
+    <h3>valor por unidade</h3>
+    <input type="text" name="valorUnit" autocomplete="off" id="valorUni" maxlength="8" placeholder="" required>
+    <h3>data da venda</h3>
+    <input type="date" name="dataCreate"  id="dataCreate" placeholder="" required>
+    <h3>valor </h3>
+    <input type="text" name="valorServico" autocomplete="off" id="valorTotal" maxlength="8" placeholder="" required>
+    <h3>data de entrega</h3>
+    <input type="date" name="dataEnt" autocomplete="off" placeholder="" required>
+    <button type="submit">cadastrar</button>
+</form>
+<datalist id="clients"></datalist>
+<datalist id="servicos"></datalist>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+<script>
+
+    let clients = []
+    let servicos = []
+    let realText = ''
+    let newText = ''
+    let quant = ''
+    let realQuant =''
+    let servico = ''
+    let valorUniPego;
+
+</script>
+{{#each client}}
+<script>
+  clients.push({
+    nome: ( '{{dataValues.nome}}'),
+    email:('{{dataValues.email}}'),
+    telefone: ('{{dataValues.telefone}}'),
+    cep:('{{dataValues.cep}}'),
+    cpf:('{{dataValues.cpf}}'),
+    id:'{{dataValues.id}}'
+  })
+ 
+</script>
+{{/each}}
+{{#each servico}}
+<script>
+  servicos.push({
+    nome:'{{dataValues.nome}}',
+    descricao:'{{dataValues.descricao}}',
+    valor:'{{dataValues.valorUnitario}}',
+    id:'{{dataValues.id}}'
+  })
+</script>
+{{/each}}
+<script>
+    for(let client of clients){
+        
+        document.querySelector('#clients').innerHTML+=`
+        <option  value="`+client.nome+`"></option>
+        `
+    }
+    for(servico of servicos){
+        document.querySelector('#servicos').innerHTML+=`
+        <option  value="`+servico.nome+`"></option>
+        `
+    }
+    
+    function draw(){
+        transformaTextEmReais()
+        transformaQuantidadeEmReais()
+        procurarPedido()
+       
+        
+       if(newText != '' & quant !='' ){
+           let pText = String(newText*quant)
+           let sText = ''
+           for(i=0;i<pText.length;i++){
+              if(pText[i] == '.'){
+                  if(pText[i] != undefined)
+                    sText+=pText[i]
+                    if(pText[i+1] != undefined)
+                    sText+=pText[i+1]
+                    if(pText[i+2] != undefined)
+                    sText+=pText[i+2]
+                break;
+              }else{
+              sText+=pText[i]
+           }
+           }
+           document.querySelector('#valorTotal').value ='R$ '+sText
+       }
+
+       
+        
+    }
+    function procurarPedido(){
+        if(document.querySelector('#valorUni').value == ''){
+            
+        let Textservico = document.querySelector('#servico').value
+        if(servico != Textservico)
+        servico = Textservico
+        if(servico != '')
+        for(item of servicos){
+            if(item.nome == servico)
+            document.querySelector('#valorUni').value = item.valor
+        }
+    } 
+}
+    function transformaTextEmReais(){
+
+        let texto = ''+document.querySelector('#quantidade').value
+        
+        if(realText != texto){
+            realText = texto    
+            newText =''
+        for(let i = 0; i < realText.length; i++){
+            
+            if(realText[i] == ','){
+                newText+='.'
+                
+                }else{
+                   newText +=realText   [i]
+                   
+                }
+           
+        }
+       newText = Number(newText)
+      
+        }
+    }
+     function transformaQuantidadeEmReais(){
+         let texto = ''+document.querySelector('#valorUni').value
+        
+        if(realQuant != texto){
+            realQuant = texto    
+            quant =''
+        for(let i = 0; i < realQuant.length; i++){
+            
+            if(realQuant[i] == ','){
+                quant+='.'
+                
+                }else{
+                   quant +=realQuant[i]
+                   
+                }
+           
+        }
+       quant = Number(quant)
+      
+        }
+     }
+
+
+</script>
+<script>
+    for(cliente of clients){
+      let urlParams = new URLSearchParams(window.location.search);
+      let id = urlParams.get("id");
+      
+    if(cliente.id == id){
+       
+        document.querySelector('#client').value = cliente.nome
+   
+        break;
+    }}
+         var data = new Date();
+  var dia     =String(data.getDate()).length == 1?'0'+data.getDate():data.getDate();
+  var esteMes = data.getMonth()+1
+  var mes     = String(esteMes).length == 1?'0'+esteMes:esteMes;
+  var ano    = data.getFullYear();
+    document.querySelector('#dataCreate').value = ''+ano+'-'+mes+'-'+dia
+
+    function cadastrar(){
+         let urlParams = new URLSearchParams(window.location.search);
+      let id = urlParams.get("id");
+        let form = document.querySelector('form');
+        form. method="post"
+        form.action="/addPedido?venda=true&id="+String(id)
+    }
+</script>

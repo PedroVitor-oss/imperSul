@@ -1,0 +1,253 @@
+<style>
+    body{
+        background-color: #2E66FF;
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .no-line{
+        outline: none;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+    }
+    textarea{
+        border-radius: 10px 10px 0;
+        border:none;
+    }
+    button{
+        font-family: 'Fredoka', sans-serif;
+        margin-top: 10px;
+    background: yellow;
+    border: 2px solid yellow;
+    color: black;
+    border-radius: 10px;
+    height: 30px;
+    }
+</style>
+
+
+<form action="/addPagamento" method="post">
+    <h3>cliente</h3>
+    <input type="text" autocomplete="off" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
+    <h3>Data do Pedido</h3>
+    <input type="text" autocomplete="off" name="dataPedido" id="dataPedido" class="no-line" placeholder="" required>
+    <h3>valor total</h3>
+    <input type="text" autocomplete="off" name="valorTotal" id="valorTotal" class="no-line" placeholder="" required>
+    <h3>tipo de Pagamento</h3>
+   <select name="tipoPagamneto"  id="tipoPagamneto" class="no-line"required>
+        <option>avista</option>
+        <option>parcela</option>
+   </select>
+   <div id="parcela" style="width:100%"></div>
+    <h3>Vencimento</h3>
+    <input type="date" autocomplete="off" name="Vencimento" class="no-line" placeholder="" >
+    <button type="submit">cadastrar</button>
+</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script>
+    let vendas =[];
+    let client = ''
+    let dataCreate ;
+    let dataVencimento;
+    let numeros = ['1','2','3','4','5','6','7','8','9','0']
+    {{#each vendas}}
+     vendas.push({
+  cliente:'{{dataValues.client}}',
+  servico:'{{dataValues.nomeServico}}',
+  quantidade:'{{dataValues.quantidade}}',
+  valor:'{{dataValues.valor}}',
+  dataCreate:'{{dataValues.dataCreate}}',
+  dataEntrega:'{{dataValues.dataEntrega}}',
+  valorServico:'{{dataValues.valorServico}}',
+  id:'{{dataValues.id}}',
+})
+    {{/each}};
+    // definir nome do cliete e data do pedido
+    function definirClient()
+    {
+       for(venda of vendas){
+      let urlParams = new URLSearchParams(window.location.search);
+      let id = urlParams.get("id");
+     
+    if(venda.id == id){
+        client = venda.cliente;
+        document.querySelector('#client').value = venda.cliente
+        dataCreate = venda.dataCreate;
+        document.querySelector('#dataPedido').value = venda.dataCreate
+        dataVencimento = venda.dataEntrega;
+        break;
+    }
+} 
+    }
+
+
+     criarParcela()
+   
+    let valorTotal = 0;
+    // definir valor total de todos os serviços feitos
+    function definirValorTotal()
+    {
+        valorTotal = 0
+    for(venda of vendas){
+      if(venda.cliente == client){
+          if(venda.dataCreate == dataCreate)
+          if(venda.dataEntrega == dataVencimento){
+             let valor = venda.valorServico;
+             let valorNumero = '';
+            for(let i =0;i<valor.length;i++){
+                for(numero of numeros){
+                    if(valor[i] == numero)
+                    valorNumero+=valor[i]
+                }
+            }
+            valorNumero = Number(valorNumero)
+            valorTotal+=valorNumero
+          }
+      }
+  }  
+  document.querySelector('#valorTotal').value = valorTotal
+    }
+
+    //definir parcela
+    let quantnumer;
+    let tipoPagamnetoS = ''
+    let contParcela ='';
+    
+    function criarParcela(){
+        let tipoPagamneto = document.querySelector('#tipoPagamneto').value
+        let quantParcela = document.querySelector('#quantParcela')
+
+        //parcela
+        if(tipoPagamneto == 'parcela'){
+            if(quantParcela == null){
+                            document.querySelector('#parcela').innerHTML = ''
+            document.querySelector('form').innerHTML=`
+            <h3>cliente</h3>
+    <input type="text" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
+    <h3>Data do Pedido</h3>
+    <input type="text" name="dataPedido" id="dataPedido" class="no-line" placeholder="" required>
+    <h3>valor total</h3>
+    <input type="text" name="valorTotal" id="valorTotal" class="no-line" placeholder="" required>
+    <h3>tipo de Pagamento</h3>
+   <select name="tipoPagamneto" id="tipoPagamneto" class="no-line"required>
+       <option>parcela</option>
+        <option>avista</option>
+        
+   </select>
+   <div id="parcela" style="width:100%"></div>
+ 
+    <button type="submit">cadastrar</button>
+            `
+            document.querySelector('#parcela').innerHTML =`
+            <h3>defina quantidade de Parcelas</h3>
+            <input type="number" name="quantParcela" id="quantParcela" class="no-line" placeholder="" required>
+            <h3>datas de pagamentos</h3>
+            <textarea name="datasPaga" id="datasPaga"></textarea>
+             <h3>valor por Parcels</h3>
+            <textarea name="valorParcelado" id="valorParcelado"></textarea>
+            <h3>Forma de Pagamentos</h3>
+            <select name="formaPagamneto" id="formaPagamneto" class="no-line"required>
+             <option>pix</option>
+             <option>boleto</option>
+             <option>cartão</option>
+            </select>
+            `}
+        }else{
+        //avista
+            if(tipoPagamneto == 'avista'){
+         document.querySelector('form').innerHTML=`
+            <h3>cliente</h3>
+    <input type="text" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
+    <h3>Data do Pedido</h3>
+    <input type="text" name="dataPedido" id="dataPedido" class="no-line" placeholder="" required>
+    <h3>valor total</h3>
+    <input type="text" name="valorTotal" id="valorTotal" class="no-line" placeholder="" required>
+    <h3>tipo de Pagamento</h3>
+   <select name="tipoPagamneto" id="tipoPagamneto" class="no-line"required>
+        <option>avista</option>
+        <option>parcela</option>
+   </select>
+   
+   <div id="parcela" style="width:100%">
+       <h3>Forma de Pagamentos</h3>
+            <select name="formaPagamneto" id="formaPagamneto" class="no-line"required>
+             <option>pix</option>
+             <option>boleto</option>
+             <option>cartão</option>
+            </select>
+   </div>
+    <h3>Vencimento</h3>
+    <input type="date" name="Vencimento" class="no-line" placeholder="" >
+    <button type="submit">cadastrar</button>
+            `
+              
+            }
+            
+        }
+
+    }
+  function draw(){
+      definirClient()
+      definirValorTotal()
+
+    if(tipoPagamnetoS !=document.querySelector('#tipoPagamneto').value ){
+        tipoPagamnetoS = document.querySelector('#tipoPagamneto').value
+        criarParcela()
+    }
+let quantParcela =document.querySelector('#quantParcela')
+if(quantParcela != null){
+ let datasVenc = document.querySelector('#datasPaga')
+ let valorParcela = document.querySelector('#valorParcelado')
+ if(quantnumer != quantParcela.value){
+     quantnumer = quantParcela.value
+     let quantas = Number(quantParcela.value)
+                 datasVenc.value=''
+                 valorParcela.value=''
+            for(let i =0;i<quantas;i++){
+                //data dos vencimentos de cada parcela
+                 var data = new Date();
+                 var mes     = data.getMonth()+1;
+                  var ano    = data.getFullYear();
+                 let newmes =mes+i
+                 if(newmes>12){
+                 newmes = newmes-12
+                 ano+=1
+                 }
+                datasVenc.value+= '18/'+newmes+'/'+ano+','
+                //valor de cada parcela
+                let valorPorParcela = valorTotal/quantas
+                let newValorPorParcela = '';
+                valorPorParcela = String(valorPorParcela)
+                for(let i =0;i<valorPorParcela.length;i++){
+                    if(valorPorParcela[i] == '.'||valorPorParcela[i] == ','){
+                        newValorPorParcela+=valorPorParcela[i]
+                        newValorPorParcela+=valorPorParcela[i+1]
+                        if(valorPorParcela[i+2] == undefined){
+                        newValorPorParcela+='0'
+                        }else{
+                        newValorPorParcela+=valorPorParcela[i+2]
+                        }
+                        break;
+                    }else{
+                        newValorPorParcela+=valorPorParcela[i]
+                    }
+                }
+                console.log(newValorPorParcela)
+                 document.querySelector('#valorParcelado').value+=newValorPorParcela+','
+            }
+
+}
+    }
+  }
+</script>

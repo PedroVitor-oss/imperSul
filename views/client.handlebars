@@ -1,0 +1,43 @@
+<form action="/home" method="post">
+<button type="submit">
+    <ion-icon name="home-outline"></ion-icon>
+</button><br>
+</form>
+<br>
+<style>
+.item{
+    display: flex;
+}
+.item .dentro{
+    margin: 10px;
+}
+button{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border:none;
+    background-color: #2E66FF;
+    color:#fff
+    }
+
+</style>
+{{#each client}}
+<div class="item">
+<h2 class="dentro">{{dataValues.nome}}</h2>
+<h3 class="dentro">{{dataValues.email}}</h3>
+<h3 class="dentro">{{dataValues.telefone}}</h3>
+<h3 class="dentro">{{dataValues.cep}}</h3>
+<h3 class="dentro">{{dataValues.cpf}}</h3>
+
+</div>
+
+<hr>
+{{/each}}
+
+
+
+
+    <!--icones-->    
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

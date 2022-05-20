@@ -1,0 +1,212 @@
+
+<style>  .empresa
+  {
+    display: flex;
+  }
+  .empresa div.dados{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 100px;
+    flex-direction: row;
+    align-content: flex-start;
+  }
+  
+  .empresa h3{
+    margin: 10px;
+  }
+</style>
+<h2 style="text-align:center ;">Orden de Serviço</h2>
+
+
+
+
+
+<!-- carregar banco de dados-->
+<script>
+     let servicos = []
+  let clients = []
+  let vendas = []
+  let pedidos = []
+  let pagamentos = []
+  let empresa ;
+     //clients
+  {{#each client}}
+    clients.push({
+      nome: ( '{{dataValues.nome}}'),
+      email:('{{dataValues.email}}'),
+      telefone: ('{{dataValues.telefone}}'),
+      endereco:('{{dataValues.endereco}}'),
+      cep:('{{dataValues.cep}}'),
+      cpf:('{{dataValues.cpf}}'),
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //serviços
+  {{#each servico}}
+    servicos.push({
+      nome:'{{dataValues.nome}}',
+      descricao:'{{dataValues.descricao}}',
+      valor:'{{dataValues.valorUnitario}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Vendas
+  {{#each vendas}}
+    vendas.push({
+      cliente:'{{dataValues.client}}',
+      servico:'{{dataValues.nomeServico}}',
+      quantidade:'{{dataValues.quantidade}}',
+      valor:'{{dataValues.valor}}',
+      dataCreate:'{{dataValues.dataCreate}}',
+      dataEntrega:'{{dataValues.dataEntrega}}',
+      id:'{{dataValues.id}}'
+    })
+  {{/each}}
+  //Pagamentos
+  {{#each pagamento}}
+    pagamentos.push({
+      client: ( '{{dataValues.client}}'),
+      dataPedido:('{{dataValues.dataPedido}}'),
+      valorTotal: ('{{dataValues.valorTotal}}'),
+      tipoPagamento:('{{dataValues.tipoPagamento}}'),
+      formaPagamneto:('{{dataValues.formaPagamneto}}'),
+      valorParcelado:'{{dataValues.valorParcelado}}',
+      Vencimento:'{{dataValues.Vencimento}}',
+    })
+  {{/each}}
+  {{#each empresa}}
+  empresa = {
+    nome: '{{dataValues.nome}}',
+    logo:('{{dataValues.logo}}'),
+    cidade:'{{dataValues.cidade}}',
+    endereco:'{{dataValues.endereco}}',
+    cnpj:'{{dataValues.cnpj}}',
+    telefone:'{{dataValues.telefone}}'
+  }
+  {{/each}}
+</script>
+<!--colocar pedidos-->
+<script>
+ colocarVendas()
+  pedidosIguais()
+function moudePedido(i){
+    return{
+      cliente:i.cliente,
+      dataCreate:i.dataCreate,
+      dataEntrega:i.dataEntrega,
+      servicos:[],
+      id:i.id,
+    }
+  }
+function colocarVendas(){
+  for(venda of vendas){
+    if(pedidos.length >0){
+     for(pedido of pedidos){
+       if(pedido.cliente == venda.cliente&
+       pedido.dataEntrega == venda.dataEntrega&
+       pedido.dataCreate ==venda.dataCreate){
+         pedido.servicos.push(venda.servico)
+       }else{
+         for(p of pedidos){
+           if(p.cliente == venda.cliente &p.dataCreate == venda.dataCreate){
+            
+           }else{
+           pedidos.push(moudePedido(venda))
+       
+           break; 
+           }
+         }
+       }
+     }
+    }else{
+
+      pedidos.push(moudePedido(venda))
+      colocarVendas()
+      break;
+    }
+  }
+  
+ pedidosIguais()
+}
+function pedidosIguais(){
+  for(pedido of pedidos){
+    for(p of pedidos){
+      if(p.cliente == pedido.cliente &p.dataCreate == pedido.dataCreate & p.dataEntrega == pedido.dataEntrega){
+        if(p.servicos != pedido.servicos)
+          if(p.servicos.length>pedido.servicos.length){
+            pedidos.splice(pedidos.indexOf(pedido),1)
+          }else{
+             pedidos.splice(pedidos.indexOf(p),1)
+          }
+        
+      }
+    }
+  }
+}
+let moude = ''
+for(pedido of pedidos){
+    let urlParams = new URLSearchParams(window.location.search);
+      let id = urlParams.get("id");
+      
+      if(pedido.id == id)
+      moude = pedido;
+}
+console.log(empresa)
+</script>
+<!--principál-->
+<script>
+    //dados da empresa
+    document.querySelector('body').innerHTML+=`
+    <header class="empresa" style="margin-bottom: 45px;">
+      <div style="width:25%">
+  <h2>`+empresa.nome+`</h2>
+  </div>
+  <div class='dados'>
+   <h3>cidade: `+empresa.cidade+`</h3>
+  <h3>endereço: `+empresa.endereco+`</h3>
+   <h3>cnpj: `+empresa.cnpj+`</h3>
+    <h3>telefone: `+empresa.telefone+`</h3>
+      </div>
+</header>
+    `
+    //cliente
+let urlParams = new URLSearchParams(window.location.search);
+   let id = urlParams.get("id");
+   console.log(pedidos[Number(id)-1])
+   document.querySelector('body').innerHTML+=`
+    <header class="cliet" style="margin-bottom: 45px;">
+  <H2>cliente: `+pedidos[Number(id)-1].cliente+`</H2>
+  <h3>Pedido em: `+ trasformData(pedidos[Number(id)-1].dataCreate)+`</h3>
+  <h3>Com data de emtrega em: `+ trasformData(pedidos[Number(id)-1].dataEntrega)+`</h3>
+  <hr>
+</header>
+   `
+   //serviços
+    for(servico of pedidos[Number(id)-1].servicos){
+      for(s of servicos){
+        if(s.nome = servico)
+    document.querySelector('body').innerHTML+=`
+<header class="Seriço(s)">
+  <div>
+  <H2>serviço: `+servico+`</H2>
+  <h3>descrição:</h3>
+  <p>`+s.descricao +`</p>
+  
+
+  <hr>
+  </div>
+</header>`
+    }
+    }
+function trasformData(data){
+let ano = ''+data[0]+data[1]+data[2]+data[3]
+let mes = ''+data[5]+data[6]
+let dia = ''+data[8]+data[9]
+
+return dia+'/'+mes+'/'+ano
+ console.log("[ano]",ano)
+ console.log("[mes]",mes)
+ console.log("[dia]",dia)
+}
+   
+</script>

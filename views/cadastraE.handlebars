@@ -1,0 +1,112 @@
+<style>
+    body{
+        min-height: 100vh;
+  background-color: #2E66FF;
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+    display: flex;
+    justify-content: center;
+    }
+     form{
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+        outline:none;
+    }
+    textarea{
+        height:100px;
+        border-radius:10px 10px 0;
+        padding:5px;
+        outline:none;
+    }
+    button{
+        font-family: 'Fredoka', sans-serif;
+        margin-top: 10px;
+    background: yellow;
+    border: 2px solid yellow;
+    color: black;
+    border-radius: 10px;
+    height: 30px;
+    cursor:pointer;
+    }
+    input[type = "file"]{
+        display: none;
+    }
+    .arquivo label{
+        background-color: blue;
+        box-shadow: 0 0 10px blue;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+
+    }
+    .logo{
+            background: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+    display: block;
+    }
+</style>
+<form action="/addEmpresa" method="post">
+    <h3>nome</h3>
+    <input type="text" autocomplete="off" name="nome" placeholder="digite nome" required>
+    <h3>logo</h3>
+    <div class="arquivo">
+     <input  type="file"  id="file" placeholder="digite valor do podruto">
+     <label for="file"><span>selecionar imagem</span></label>
+     </div>
+    <h3>cidade</h3>
+    <input type="text" autocomplete="off" name="cidade"  maxlength="12" placeholder="cidade" >
+    <h3>endereco</h3>
+    <input type="text" autocomplete="off" name="endereco"  maxlength="" placeholder="endereco" required>
+    <h3>cnpj</h3>
+
+    <input type="text" autocomplete="off" name="cnpj"  maxlength="" placeholder="cnpj" required>
+    <h3>telefone</h3>
+    <input type="text" autocomplete="off" name="telefone"  maxlength="" placeholder="cidade" required>
+    <button type="submit">cadastrar</button>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+
+
+
+
+    let logo;
+    function draw(){
+        
+    document.querySelector('#file').addEventListener('change',function(){
+
+        if(logo !=this.files[0].name){ 
+          logo = this.files[0].name
+          document.querySelector('.arquivo').innerHTML = `
+           <input type="file" name="imagem" id="file" placeholder="digite valor do podruto">
+     <label for="file"><span>selecionar imagem</span></label>
+          `
+        document.querySelector('.arquivo').innerHTML+=`
+        <div class="logo">
+            <spam>`+this.files[0].name+`</spam>
+          <img src=""id="preview" name="imagem" alt="" width="200px"srcset="">
+        <div>
+        `
+           if (this.files && this.files[0]) {
+        var file = new FileReader();
+        file.onload = function(e) {
+            document.getElementById("preview").src = e.target.result;
+        };       
+        file.readAsDataURL(this.files[0]);
+    }
+}
+    })}
+    
+</script>

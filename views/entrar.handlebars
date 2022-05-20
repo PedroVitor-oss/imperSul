@@ -1,0 +1,90 @@
+<style>
+    body{
+    
+    min-height: 100vh;
+    background-color: #2E66FF;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+ul{
+    margin:0;
+    padding: 0;
+}
+.formulario {
+    position: absolute;
+    left: 40%;
+    top:30%;
+}
+.formulario button{
+    width: 40px;
+    height: 40px;
+    border-radius:50% ;
+    background:#FFD400;
+    border:0 solid transparent;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.formulario button:hover{
+transform: rotate(330deg)
+}
+
+.formulario button ion-icon{
+    font-size: 25px;
+    transform: rotate(40deg);
+}
+.formulario input{
+    height: 25px;
+    color: white;
+    background: transparent;
+    outline: none;
+    border:none;
+    border-bottom: 2px solid white;
+    font-size: 20px;
+}
+.formulario input::placeholder{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+}
+
+.ondas{
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    
+}
+
+
+</style>
+
+<form class="formulario" onsubmit="entrar()">
+<h1>senha</h1>
+<input type="password" placeholder="digite a senha">
+<button type="submit">
+    <ion-icon name="paper-plane-outline"></ion-icon>
+    </button>
+</form>
+<svg class="ondas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path class="onda-1"  fill="#00009f" fill-opacity="0.5" d="M0,160L40,165.3C80,171,160,181,240,170.7C320,160,400,128,480,101.3C560,75,640,53,720,48C800,43,880,53,960,90.7C1040,128,1120,192,1200,186.7C1280,181,1360,107,1400,69.3L1440,32L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
+    <path class="onda-2" fill="#012BB6" fill-opacity="1" d="M0,128L40,106.7C80,85,160,43,240,74.7C320,107,400,213,480,245.3C560,277,640,235,720,186.7C800,139,880,85,960,85.3C1040,85,1120,139,1200,133.3C1280,128,1360,64,1400,32L1440,0L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
+
+  </svg>
+
+ <!--icones-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+function entrar(){
+let form = document.querySelector('form');
+let senha = document.querySelector('input').value;
+if(senha === 'pedro'){
+                form. method="post"
+                form.action="/home"
+}
+} 
+</script>

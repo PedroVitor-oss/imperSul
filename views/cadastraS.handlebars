@@ -1,0 +1,47 @@
+<style>
+    body{
+        background-color: #2E66FF;
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+        outline:none;
+    }
+    textarea{
+        height:100px;
+        border-radius:10px 10px 0;
+        padding:5px;
+        outline:none;
+    }
+    button{
+        font-family: 'Fredoka', sans-serif;
+        margin-top: 10px;
+    background: yellow;
+    border: 2px solid yellow;
+    color: black;
+    border-radius: 10px;
+    height: 30px;
+    cursor:pointer;
+    }
+</style>
+
+
+<form action="/addServico" method="post">
+    <h3>nome</h3>
+    <input type="text" autocomplete="off" name="servico" placeholder="digite nome">
+    <h3>descrição</h3>
+    <textarea name="descricao"  autocomplete="off" placeholder="descrição"></textarea>
+    <h3>valor</h3>
+    <input type="number" autocomplete="off" name="valor" placeholder="digite valor do podruto">
+    <button type="submit">cadastrar</button>
+</form>

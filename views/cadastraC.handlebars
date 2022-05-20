@@ -1,0 +1,45 @@
+<style>
+    body{
+        background-color: #2E66FF;
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+    }
+    button{
+        font-family: 'Fredoka', sans-serif;
+        margin-top: 10px;
+    background: yellow;
+    border: 2px solid yellow;
+    color: black;
+    border-radius: 10px;
+    height: 30px;
+    }
+</style>
+
+
+<form action="/addPessoa" method="post">
+    <h3>nome</h3>
+    <input type="text" name="nome" autocomplete="off" placeholder="digite o nome">
+    <h3>email</h3>
+    <input type="text" name="email" autocomplete="off" placeholder="digite o email">
+    <h3>telefone</h3>
+    <input type="text" name="telefone" autocomplete="off"placeholder="digite o telefone">
+    <h3>endereço</h3>
+    <input type="text" name="endereco" autocomplete="off" placeholder="digite o telefone">
+    <h3>CEP</h3>
+    <input type="text" name="cep" autocomplete="off" placeholder="digite o CPE">
+    <h3>CNPJ ou CPF</h3>
+    <input type="text" name="cpf" autocomplete="off"placeholder="digite o CPF">
+    <button type="submit">cadastrar</button>
+</form>
