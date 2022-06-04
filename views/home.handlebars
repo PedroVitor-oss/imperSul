@@ -575,13 +575,11 @@ function mostraInfoPessoa(i){
   <ion-icon name="person-circle-outline"></ion-icon>
 <h3>`+pessoa.nome+`</h3><br>
 <h4>telefone: `+pessoa.telefone+`</h4>
-<form action="/deletPessoa/`+pessoa.id+`" method="post">
-<button>
+<button onclick="deletarPessoa(`+pessoa.id+`)">
   <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
 </button>
-</form>
 
-<form action="/cadastraPedido" method="post">
+<form action="/cadastraPedido?id=`+pessoa.id+`" method="post">
 <button type="submit">
 <ion-icon name="hammer-outline" class="aparecer blue" id="`+pessoa.nome+`" ></ion-icon>
 </button>
@@ -716,6 +714,20 @@ if(pagamento.tipoPagamento == 'parcela'){
  }
 }
 let ver = 'dataPagamento'
+function deletarPessoa(id){
+document.querySelector('body').innerHTML+=`
+<div class="fosco">
+<div class="b-branco">
+  <h1>deseja deletar?</h1>
+  <form action="/deletPessoa/`+id+`" method="POST">
+<button class="b-red">deletar</button>
+</form>
+<button class="b-cinza" onclick="desligarFosco()">cancelar</button>
+
+</div>
+</div>
+`
+}
 function dataPagamento(){
   for(pagamento of pagamentos){
    if(pagamento.tipoPagamento == 'parcela'){
@@ -779,11 +791,9 @@ return `<div ondblclick="mostraInfoPessoa(this)" id="`+clients.indexOf(i)+`">
 <ion-icon name="person-circle-outline"></ion-icon>
 <h3>`+i.nome+`</h3><br>
 <h4>telefone: `+i.telefone+`</h4>
-<form action="/deletPessoa/`+i.id+`" method="post">
-<button>
+<button onclick="deletarPessoa(`+i.id+`)">
   <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
 </button>
-</form>
 
 <form action="/cadastraPedido?id=`+i.id+`" method="post">
 <button type="submit">
@@ -796,7 +806,7 @@ return `<div ondblclick="mostraInfoPessoa(this)" id="`+clients.indexOf(i)+`">
 </script>
 <!--gerar pedidos-->
 <script>
-  function moudePedido(i){
+function moudePedido(i){
     return{
       cliente:i.cliente,
       dataCreate:i.dataCreate,

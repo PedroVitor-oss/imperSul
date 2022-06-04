@@ -27,7 +27,9 @@ app.set('views', './views');
 //rotas
 //entrada
 app.get('/',(req, res)=>{
-  res.render('entrar')
+  Empresa.findAll({order:[['id','ASC']]}).then(function(empresa){
+  res.render('entrar',{empresa:empresa})
+})
 });
 app.get('/test',(req,res)=>{
   res.render('teste')
@@ -53,12 +55,13 @@ app.post('/cadastraEmpresa',(req,res)=>{
 })
 app.post('/addEmpresa', (req, res)=>{
   Empresa.create({
-    nome:req.body.nome ,
+  nome:req.body.nome ,
   logo:req.body.imagem,
   cidade:req.body.cidade,
   endereco:req.body.endereco,
   cnpj:req.body.cnpj,
-  telefone:req.body.telefone
+  telefone:req.body.telefone,
+  senha:req.body.senha
   }).then(
     res.render('certo')
   );

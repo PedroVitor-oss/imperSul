@@ -99,9 +99,12 @@ const Empresa= db.sequelize.define('empresa',{
     },
     telefone:{
         type: db.Sequelize.STRING
+    },
+    senha:{
+        type: db.Sequelize.STRING
     }
 })
-//Client.sync({force:true})
+//Empresa.sync({force:true})
 
 
  module.exports = {Client,Servico,Vendas,Pagamento,Empresa}

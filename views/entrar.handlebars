@@ -82,9 +82,32 @@ transform: rotate(330deg)
 function entrar(){
 let form = document.querySelector('form');
 let senha = document.querySelector('input').value;
+if(empresa == null|| empresa == undefined){
 if(senha === 'pedro'){
                 form. method="post"
                 form.action="/home"
 }
+ }else{
+if(senha == empresa.senha){
+                form. method="post"
+                form.action="/home"
+}
+}
 } 
+</script>
+<script>
+    let empresa;
+    {{#each empresa}}
+    empresa = {
+    nome: '{{dataValues.nome}}',
+    logo:('{{dataValues.logo}}'),
+    cidade:'{{dataValues.cidade}}',
+    endereco:'{{dataValues.endereco}}',
+    cnpj:'{{dataValues.cnpj}}',
+    telefone:'{{dataValues.telefone}}',
+    senha:'{{dataValues.senha}}'
+
+  }
+  {{/each}}
+  console.log(empresa.senha)
 </script>

@@ -121,7 +121,7 @@ form button{
 <div class="campo">
         <h2>mes</h2>
   <select id="mes">
-    
+    <option value=""></option>
 </select>
 </div>
 <div class="campo">
@@ -140,7 +140,6 @@ form button{
 <datalist id="especificos"></datalist>
 <div id="dados">
 <h2 id="valorTota">R$</h2></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
@@ -205,6 +204,7 @@ let valor = 0
         else
         if(p.value == 'data'){
             let mes =  document.querySelector("#mes").value
+             let ano =  document.querySelector("#ano").value
             let newMes;
             if(mes.length == 1){
                 newMes = '0'+mes
@@ -214,17 +214,29 @@ let valor = 0
             console.log(mes)
         for(pagamento of pagamentos){
            let Pmes =  pagamento.dataPedido[5]+pagamento.dataPedido[6]
-           console.log(Pmes,newMes)
-            if(Pmes == newMes){
+           let pAno = pagamento.dataPedido[0]+pagamento.dataPedido[1]+pagamento.dataPedido[2]+pagamento.dataPedido[3]
+           console.log(Pmes,'[mes]'+newMes)
+           console.log(pAno)
+           if(newMes != ''){
+            if(Pmes == newMes& ano == pAno){
                   valor+=Number(pagamento.valorTotal)
- document.querySelector("#dados").innerHTML +=`
-            <div>
-                <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
-                <h3>data feita: `+pagamento.dataPedido+`</h3>
-                <h3>para: `+pagamento.client+`</h3>
-            </div>
-            `
-        }
+                    document.querySelector("#dados").innerHTML +=`
+                     <div>
+                         <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
+                         <h3>data feita: `+pagamento.dataPedido+`</h3>
+                         <h3>para: `+pagamento.client+`</h3>
+                     </div>`
+            }
+           }else
+                 if(ano == pAno){
+                  valor+=Number(pagamento.valorTotal)
+                    document.querySelector("#dados").innerHTML +=`
+                     <div>
+                         <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
+                         <h3>data feita: `+pagamento.dataPedido+`</h3>
+                         <h3>para: `+pagamento.client+`</h3>
+                     </div>`
+            }
         }
         }else
  document.querySelector("#dados").innerHTML +=`
@@ -250,8 +262,10 @@ let valor = 0
         }
         } else
        //Por Data
+       
        if(p.value == 'data'){
             let mes =  document.querySelector("#mes").value
+               let ano =  document.querySelector("#ano").value
             let newMes;
             if(mes.length == 1){
                 newMes = '0'+mes
@@ -261,9 +275,12 @@ let valor = 0
             console.log(mes)
         for(venda of vendas){
            let Pmes =  venda.dataCreate[5]+venda.dataCreate[6]
+           let pAno = pagamento.dataPedido[0]+pagamento.dataPedido[1]+pagamento.dataPedido[2]+pagamento.dataPedido[3]
+
            console.log(Pmes,newMes)
-            if(Pmes == newMes){
-                                  valor+=Number(venda.valor)
+           if(newMes != ''){
+           if(Pmes == newMes& ano == pAno){
+            valor+=Number(venda.valor)
 
  document.querySelector("#dados").innerHTML +=`
             <div>
@@ -275,7 +292,20 @@ let valor = 0
 
             </div>
             `
-                }        
+                } 
+                }else 
+                if(ano == pAno){
+                  valor+=Number(pagamento.valorTotal)
+                    document.querySelector("#dados").innerHTML +=`
+                      <div>
+                <h2>Valor do Pagamento: `+venda.valor+`</h2>
+                <h3>data feita: `+venda.dataCreate+`</h3>
+                
+                <h3>serviço: `+venda.servico+`
+                <h3>para: `+venda.cliente+`</h3>
+
+            </div>`
+            }    
                 }
         }else
         for(venda of vendas){
@@ -294,7 +324,6 @@ let valor = 0
         }
         }
     }
-    
     function quantArecadou(c,p,e){
         let arrecadou = ''
          let mes =  document.querySelector("#mes").value
@@ -382,7 +411,8 @@ tela_impressao.window.close();
 </script>
 <!--alterar-->
 <script>
-    document.querySelector('select#para').addEventListener('change',function(){
+
+    document.querySelector('select#para').addEventListener('change',function possivel(){
         if(document.querySelector('select#para').value == 'data'){
             document.querySelector('input').style.background='red'
              document.querySelector('select#ano').style.background='transparent'
@@ -399,4 +429,21 @@ tela_impressao.window.close();
         }
     
     })
+    document.querySelector('select#campo').addEventListener('change',function possivel(){
+        if(document.querySelector('select#para').value == 'data'){
+            document.querySelector('input').style.background='red'
+             document.querySelector('select#ano').style.background='transparent'
+              document.querySelector('select#mes').style.background='transparent'
+        }else{
+            document.querySelector('input').style.background='transparent'
+             document.querySelector('select#ano').style.background='red'
+              document.querySelector('select#mes').style.background='red'
+        }
+        if(document.querySelector('select#para').value == 'setor'&document.querySelector('select#campo').value == 'Pagamentos'){
+             document.querySelector('select#campo').style.background='red'
+        }else{
+                         document.querySelector('select#campo').style.background='transparent'
+        }
+    
+    });
 </script>

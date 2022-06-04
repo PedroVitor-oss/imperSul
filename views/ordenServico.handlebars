@@ -10,12 +10,33 @@
     flex-direction: row;
     align-content: flex-start;
   }
-  
+  .cliet{
+display:grid;
+grid-template-columns: 450px 200px 200px;
+width:100%;
+  }
   .empresa h3{
     margin: 10px;
   }
+  textArea#descrição{
+    border: none;
+    width: 100%;
+    height: 84px;
+    font-size: 20px;
+    font-family: Fredoka, sans-serif;
+    resize: vertical;
+  }
+  .servico div{
+    display:grid;
+grid-template-columns: 40% 200px 200px;
+width:100%;
+  }
+    .servico div h2
+    {
+      text-align: center;
+    }
 </style>
-<h2 style="text-align:center ;">Orden de Serviço</h2>
+<h2 style="text-align:center ;">Pedido</h2>
 
 
 
@@ -105,7 +126,12 @@ function colocarVendas(){
        if(pedido.cliente == venda.cliente&
        pedido.dataEntrega == venda.dataEntrega&
        pedido.dataCreate ==venda.dataCreate){
-         pedido.servicos.push(venda.servico)
+         console.log(venda)
+         pedido.servicos.push(
+           {nome:venda.servico,
+           quantidade:Number(venda.quantidade),
+           valor:Number(venda.valor)}
+           )
        }else{
          for(p of pedidos){
            if(p.cliente == venda.cliente &p.dataCreate == venda.dataCreate){
@@ -176,28 +202,55 @@ let urlParams = new URLSearchParams(window.location.search);
    document.querySelector('body').innerHTML+=`
     <header class="cliet" style="margin-bottom: 45px;">
   <H2>cliente: `+pedidos[Number(id)-1].cliente+`</H2>
-  <h3>Pedido em: `+ trasformData(pedidos[Number(id)-1].dataCreate)+`</h3>
+  <h3>telefone:`+clients[Number(id)-1].telefone+` </h3>
+    <h3>endereço:`+clients[Number(id)-1].endereco+` </h3>
+
   <h3>Com data de emtrega em: `+ trasformData(pedidos[Number(id)-1].dataEntrega)+`</h3>
-  <hr>
+  <h3> </h3>
+  <h3> </h3>
+   <h3>Pedido em: `+ trasformData(pedidos[Number(id)-1].dataCreate)+`</h3>
+
 </header>
+  <hr>
+
    `
    //serviços
-    for(servico of pedidos[Number(id)-1].servicos){
-      for(s of servicos){
-        if(s.nome = servico)
     document.querySelector('body').innerHTML+=`
-<header class="Seriço(s)">
+    <header class="servico">
+      <div>
+       <h2 style="text-align:left"> serviços</h2>
+       <h2> quantidade</h2>
+       <h2 style="text-align:right"> valor</h2>
+</div>
+<hr>
+</header>
+    `;
+    let valorTotal = 0
+    for(servico of pedidos[Number(id)-1].servicos){
+valorTotal+=servico.valor*servico.quantidade
+    document.querySelector('body').innerHTML+=`
+<header class="servico">
   <div>
-  <H2>serviço: `+servico+`</H2>
-  <h3>descrição:</h3>
-  <p>`+s.descricao +`</p>
-  
-
-  <hr>
+    <div style="display:block">
+      <H2 style="text-align:left">serviço: `+servico.nome+`</H2>
+ <textArea id="descrição" >descrição: </textArea>
+ </div>
+ <h2> `+servico.quantidade+`</h2>
+  <h2 style="text-align:right"> R$ `+servico.valor*servico.quantidade+`</h2>
   </div>
+    <hr>
 </header>`
     }
-    }
+    // valor total
+ document.querySelector('body').innerHTML+=`
+ <header class="servico">
+      <div>
+       <h2 style="text-align:left"> valor total</h2>
+       <h2> </h2>
+       <h2 style="text-align:right">R$ `+valorTotal+`</h2>
+</div>
+</header>
+ `
 function trasformData(data){
 let ano = ''+data[0]+data[1]+data[2]+data[3]
 let mes = ''+data[5]+data[6]

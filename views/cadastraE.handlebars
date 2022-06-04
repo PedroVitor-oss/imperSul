@@ -57,7 +57,7 @@
 </style>
 <form action="/addEmpresa" method="post">
     <h3>nome</h3>
-    <input type="text" autocomplete="off" name="nome" placeholder="digite nome" required>
+    <input type="text" autocomplete="off"  name="nome" placeholder="digite nome" required>
     <h3>logo</h3>
     <div class="arquivo">
      <input  type="file"  id="file" placeholder="digite valor do podruto">
@@ -68,23 +68,39 @@
     <h3>endereco</h3>
     <input type="text" autocomplete="off" name="endereco"  maxlength="" placeholder="endereco" required>
     <h3>cnpj</h3>
-
     <input type="text" autocomplete="off" name="cnpj"  maxlength="" placeholder="cnpj" required>
     <h3>telefone</h3>
     <input type="text" autocomplete="off" name="telefone"  maxlength="" placeholder="cidade" required>
+    <h3>nova senha</h3>
+    <input type="text" autocomplete="off" name="senha"  maxlength="" placeholder="senha" required>
     <button type="submit">cadastrar</button>
 </form>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-
-
-
+let empresa;
+  {{#each empresa}}
+  empresa = {
+    nome: '{{dataValues.nome}}',
+    logo:('{{dataValues.logo}}'),
+    cidade:'{{dataValues.cidade}}',
+    endereco:'{{dataValues.endereco}}',
+    cnpj:'{{dataValues.cnpj}}',
+    telefone:'{{dataValues.telefone}}',
+    senha:'{{dataValues.senha}}'
+  }
+  {{/each}}
+if(empresa!= null||empresa!=undefined){document.querySelector('input[name = "nome"]').value = empresa.nome
+document.querySelector('input[name = "cidade"]').value = empresa.cidade
+document.querySelector('input[name = "endereco"]').value = empresa.endereco
+document.querySelector('input[name = "cnpj"]').value = empresa.cnpj
+document.querySelector('input[name = "telefone"]').value = empresa.telefone
+document.querySelector('input[name = "senha"]').value = empresa.senha
+}
 
 
     let logo;
-    function draw(){
-        
+    function draw(){  
     document.querySelector('#file').addEventListener('change',function(){
 
         if(logo !=this.files[0].name){ 
