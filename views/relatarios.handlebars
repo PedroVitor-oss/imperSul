@@ -86,6 +86,9 @@ form button{
     COLOR:WHITE;
     cursor:pointer;
 }
+h2#valorTota{
+    text-align: center;
+}
 </style>
 
 
@@ -132,6 +135,18 @@ form button{
     <option value="2024">2024</option>
 </select>
 </div>
+<div class="campo">
+        <h2>apartir do dia</h2>
+  <select id="doDia">
+    <option value=""></option>
+</select>
+</div>
+<div class="campo">
+        <h2>até o dia</h2>
+  <select id="ateDia">
+    <option value=""></option>
+</select>
+</div>
 </div>
 <div class="ir">
     <button  onclick="gerarReloatorio()">fazer relatorio</button>
@@ -148,10 +163,21 @@ form button{
 
 <!--principal-->
 <script>
+    //adicionar meses
 for(i=1;i<=12;i++)
 document.querySelector("#mes").innerHTML+=`
     <option value="`+i+`">`+i+`</option>
 `
+//adicionar dias
+for(i=1;i<=31;i++){
+document.querySelector("#doDia").innerHTML+=`
+    <option value="`+i+`">`+i+`</option>
+`
+document.querySelector("#ateDia").innerHTML+=`
+    <option value="`+i+`">`+i+`</option>
+`
+
+}
  document.querySelector('#para').addEventListener('change',function(){
      let para =  document.querySelector("#para")
      if(para.value == 'clientes'){
@@ -176,19 +202,21 @@ let valor = 0
 
     function gerarReloatorio(){
         valor = 0
+        document.querySelector("div#dados").innerHTML='<h2 id="valorTota"></h2>'
         let campo = document.querySelector("#campo")
         let para =  document.querySelector("#para")
         let especifico =  document.querySelector("#especifico")
-        quantArecadou(campo,para,especifico)
+        
         if(campo.value == 'Pagamentos')
             Pagamentos(para,especifico)
         if(campo.value == 'Vendas')
             Vendas(para,especifico)
+        
+        quantArecadou(campo,para,especifico)
             especifico.value = ''
     }
     function Pagamentos(p,e){
-        console.log('paghamento')
-        if(p.value == 'clientes')
+        if(p.value == 'clientes')//filtro por cliente especifico
         for(pagamento of pagamentos){
             if(pagamento.client == e.value){
             valor+=Number(pagamento.valorTotal)
@@ -200,34 +228,51 @@ let valor = 0
             </div>
             `
         }
-        }
-        else
+        }else
+        //filtro por data
         if(p.value == 'data'){
+            let doDia =  document.querySelector('#doDia').value
+            let ateDia =  document.querySelector('#ateDia').value
             let mes =  document.querySelector("#mes").value
-             let ano =  document.querySelector("#ano").value
+            let ano =  document.querySelector("#ano").value
             let newMes;
+            //ageitando tamanho do mes
             if(mes.length == 1){
                 newMes = '0'+mes
             }else{
                 newMes = mes
             }
-            console.log(mes)
+
         for(pagamento of pagamentos){
            let Pmes =  pagamento.dataPedido[5]+pagamento.dataPedido[6]
            let pAno = pagamento.dataPedido[0]+pagamento.dataPedido[1]+pagamento.dataPedido[2]+pagamento.dataPedido[3]
-           console.log(Pmes,'[mes]'+newMes)
-           console.log(pAno)
-           if(newMes != ''){
+             let pDia = pagamento.dataPedido[8]+pagamento.dataPedido[9]
+
+           if(newMes != ''){//se mes esta definido,mostrar apenas daquele mes e ano
+          
             if(Pmes == newMes& ano == pAno){
-                  valor+=Number(pagamento.valorTotal)
+                  
+                  //se a margem de dias estiver definido
+                  if(doDia != ''&&ateDia != ''){
+                    if(Number(pDia)<=Number(ateDia)&&Number(pDia)>=Number(doDia)){
+                        valor+=Number(pagamento.valorTotal)
                     document.querySelector("#dados").innerHTML +=`
                      <div>
                          <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
                          <h3>data feita: `+pagamento.dataPedido+`</h3>
                          <h3>para: `+pagamento.client+`</h3>
+                     </div>`}
+                     }else{
+                        valor+=Number(pagamento.valorTotal)
+                        document.querySelector("#dados").innerHTML +=`
+                     <div>
+                         <h2>Valor do Pagamento: `+pagamento.valorTotal+`</h2>
+                         <h3>data feita: `+pagamento.dataPedido+`</h3>
+                         <h3>para: `+pagamento.client+`</h3>
                      </div>`
+                     }
             }
-           }else
+           }else//se mes não esta definido,mostra todos os pagamentos do ano 
                  if(ano == pAno){
                   valor+=Number(pagamento.valorTotal)
                     document.querySelector("#dados").innerHTML +=`
@@ -238,7 +283,8 @@ let valor = 0
                      </div>`
             }
         }
-        }else
+        }else if(p.value == 'setor') //por setores
+        for(pagamento of pagamentos){}
  document.querySelector("#dados").innerHTML +=`
             <h2>pagamentos não tem setores</h2>
             `    }
@@ -264,25 +310,32 @@ let valor = 0
        //Por Data
        
        if(p.value == 'data'){
+            let doDia =  document.querySelector('#doDia').value
+            let ateDia =  document.querySelector('#ateDia').value
             let mes =  document.querySelector("#mes").value
-               let ano =  document.querySelector("#ano").value
+            let ano =  document.querySelector("#ano").value
             let newMes;
+            //ageitar tamanho do mes
             if(mes.length == 1){
                 newMes = '0'+mes
             }else{
                 newMes = mes
             }
-            console.log(mes)
-        for(venda of vendas){
-           let Pmes =  venda.dataCreate[5]+venda.dataCreate[6]
-           let pAno = pagamento.dataPedido[0]+pagamento.dataPedido[1]+pagamento.dataPedido[2]+pagamento.dataPedido[3]
 
-           console.log(Pmes,newMes)
-           if(newMes != ''){
-           if(Pmes == newMes& ano == pAno){
-            valor+=Number(venda.valor)
+            for(venda of vendas){
+           let Vmes =  venda.dataCreate[5]+venda.dataCreate[6]
+           let VAno = venda.dataCreate[0]+venda.dataCreate[1]+venda.dataCreate[2]+venda.dataCreate[3]
+           let VDia = venda.dataCreate[8]+venda.dataCreate[9]
 
- document.querySelector("#dados").innerHTML +=`
+           if(newMes != ''){//se mas esta definido
+
+           if(Vmes == newMes& ano == VAno){
+            //se margem de dia mesta definido
+            if(doDia != ''&&ateDia != ''){
+                if(Number(VDia)<=Number(ateDia)&&Number(VDia)>=Number(doDia)){
+                     valor+=Number(venda.valor)
+
+            document.querySelector("#dados").innerHTML +=`
             <div>
                 <h2>Valor do Pagamento: `+venda.valor+`</h2>
                 <h3>data feita: `+venda.dataCreate+`</h3>
@@ -292,10 +345,26 @@ let valor = 0
 
             </div>
             `
+                }
+            }else{
+                       valor+=Number(venda.valor)
+
+            document.querySelector("#dados").innerHTML +=`
+            <div>
+                <h2>Valor do Pagamento: `+venda.valor+`</h2>
+                <h3>data feita: `+venda.dataCreate+`</h3>
+                
+                <h3>serviço: `+venda.servico+`
+                <h3>para: `+venda.cliente+`</h3>
+
+            </div>
+            `
+            }
+           
                 } 
-                }else 
-                if(ano == pAno){
-                  valor+=Number(pagamento.valorTotal)
+                }else //já que mes não esta definido,mostra todos os pagamentos do ano 
+                if(ano == VAno){
+                  valor+=Number(venda.valor)
                     document.querySelector("#dados").innerHTML +=`
                       <div>
                 <h2>Valor do Pagamento: `+venda.valor+`</h2>
@@ -325,6 +394,7 @@ let valor = 0
         }
     }
     function quantArecadou(c,p,e){
+       
         let arrecadou = ''
          let mes =  document.querySelector("#mes").value
         if(p.value == 'clientes')
@@ -335,7 +405,7 @@ let valor = 0
         arrecadou+='o mes '+mes+" gerou em "+c.value
 
 
-document.querySelector("#dados").innerHTML ='<h2>'+arrecadou+'</h2><h2 id="valorTota">R$'+valor+'</h2>'
+document.querySelector("h2#valorTota").innerHTML=arrecadou+' R$ '+valor
     }
 </script>
 <!--caregar banco de dados -->
@@ -406,7 +476,7 @@ tela_impressao.window.print();
 tela_impressao.window.close();
   }
     function draw(){
-        document.querySelector('#valorTota').innerHTML="R$"+valor
+       // document.querySelector('#valorTota').innerHTML="R$"+valor
     }
 </script>
 <!--alterar-->
