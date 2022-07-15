@@ -97,7 +97,9 @@ app.post('/addPagamento',(req, res)=>{
       formaPagamneto:req.body.formaPagamneto,
      parcelado:null,
      valorParcelado:null,
-     Vencimento:req.body.Vencimento
+     Vencimento:req.body.Vencimento,
+     Servicos:req.body.Servicos,
+     valores: req.body.valores
     }).then(
       res.render('certo')
     );
@@ -110,7 +112,9 @@ app.post('/addPagamento',(req, res)=>{
       formaPagamneto:req.body.formaPagamneto,
       parcelado:req.body.quantParcela,
       valorParcelado:req.body.valorParcelado,
-      Vencimento:req.body.datasPaga
+      Vencimento:req.body.datasPaga,
+      Servicos:req.body.Servicos,
+     valores: req.body.valores
     }).then(
       res.render('certo')
     );

@@ -284,10 +284,50 @@ let valor = 0
             }
         }
         }else if(p.value == 'setor') //por setores
-        for(pagamento of pagamentos){}
- document.querySelector("#dados").innerHTML +=`
-            <h2>pagamentos não tem setores</h2>
-            `    }
+        for(pagamento of pagamentos){
+            //trasformar texto em array
+            //serviços
+            let arrayServicos = [];
+            let texto = '';
+            for(i=0;i<pagamento.Servicos.length;i++){
+                if(pagamento.Servicos[i] == ','){
+                    arrayServicos.push(texto);
+                    texto = '';
+                }else{
+                    texto+=pagamento.Servicos[i];
+                }
+            }
+            //valores
+             let arrayValores = [];
+             texto = '';
+            for(i=0;i<pagamento.valores.length;i++){
+                if(pagamento.valores[i] == ','){
+                    arrayValores.push(texto);
+                    texto = '';
+                }else{
+                    texto+=pagamento.valores[i];
+                }
+            }
+            console.log(arrayValores)
+            
+            //serviço é igual a expecifico
+            for(s of arrayServicos){
+                if(s == e.value){
+                console.log('serviço  [s] '+s+" [e] "+e.value)
+                let index = arrayServicos.indexOf(s)
+                console.log(index)
+                valor+=Number(arrayValores[index])
+                    document.querySelector("#dados").innerHTML +=`
+                     <div>
+                         <h2>Valor do Pagamento: `+arrayValores[index]+`</h2>
+                         <h3>data feita: `+pagamento.dataPedido+`</h3>
+                         <h3>para: `+pagamento.client+`</h3>
+                     </div>`
+                }
+            }
+
+        }
+            }
     function Vendas(p,e){
         //Por clientes
         if(p.value == 'clientes'){
@@ -458,6 +498,8 @@ document.querySelector("h2#valorTota").innerHTML=arrecadou+' R$ '+valor
       formaPagamneto:('{{dataValues.formaPagamneto}}'),
       valorParcelado:'{{dataValues.valorParcelado}}',
       Vencimento:'{{dataValues.Vencimento}}',
+      Servicos:'{{dataValues.Servicos}}',
+      valores:'{{dataValues.valores}}'
     })
   {{/each}}
     for(c of clients){
@@ -493,7 +535,7 @@ tela_impressao.window.close();
               document.querySelector('select#mes').style.background='red'
         }
         if(document.querySelector('select#para').value == 'setor'&document.querySelector('select#campo').value == 'Pagamentos'){
-             document.querySelector('select#campo').style.background='red'
+            // document.querySelector('select#campo').style.background='red'
         }else{
                          document.querySelector('select#campo').style.background='transparent'
         }

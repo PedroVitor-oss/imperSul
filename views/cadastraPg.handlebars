@@ -32,11 +32,26 @@
     border-radius: 10px;
     height: 30px;
     }
+    input#Servicos{
+        position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    cursor: context-menu;
+    }
+     input#valores{
+        position: absolute;
+    top: 30px;
+    right: 0;
+    opacity: 0;
+    cursor: context-menu;
+    }
 </style>
 
 
 <form action="/addPagamento" method="post">
     <h3>cliente</h3>
+
     <input type="text" autocomplete="off" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
     <h3>Data do Pedido</h3>
     <input type="text" autocomplete="off" name="dataPedido" id="dataPedido" class="no-line" placeholder="" required>
@@ -51,6 +66,7 @@
     <h3>Vencimento</h3>
     <input type="date" autocomplete="off" name="Vencimento" class="no-line" placeholder="" >
     <button type="submit">cadastrar</button>
+    
 </form>
 
 
@@ -98,14 +114,18 @@
     // definir valor total de todos os serviços feitos
     function definirValorTotal()
     {
-        valorTotal = 0
+        valorTotal = 0;
+        document.querySelector('input#Servicos').value=''
+        document.querySelector('input#valores').value=''
     for(venda of vendas){
       if(venda.cliente == client){
           if(venda.dataCreate == dataCreate)
           if(venda.dataEntrega == dataVencimento){
              let valor = venda.valorServico;
              let valorNumero = '';
-            for(let i =0;i<valor.length;i++){
+             
+              //pegar apenas os nbumeros excluido o R$
+            for(let i =0;i<valor.length;i++){   
                 for(numero of numeros){
                     if(valor[i] == numero)
                     valorNumero+=valor[i]
@@ -113,6 +133,18 @@
             }
             valorNumero = Number(valorNumero)
             valorTotal+=valorNumero
+            //adicionando servico no campo de serviços prestados
+             document.querySelector('input#Servicos').value+=venda.servico+',';
+             //pegar apenas os numerosexcluido o R$
+             let valorServico = ''
+             for(let i=0;i<venda.valorServico.length;i++){
+                for(numero of numeros){
+                    if(venda.valorServico[i] == numero)
+                    valorServico+=venda.valorServico[i]
+                }
+             }
+             //adicionando valor do servico no campo de valores 
+             document.querySelector('input#valores').value+=valorServico+',';
           }
       }
   }  
@@ -131,8 +163,11 @@
         //parcela
         if(tipoPagamneto == 'parcela'){
             if(quantParcela == null){
-                            document.querySelector('#parcela').innerHTML = ''
+            document.querySelector('#parcela').innerHTML = ''
             document.querySelector('form').innerHTML=`
+                    <input type="text" autocomplete="off" name="Servicos" id="Servicos" class="" placeholder="" required>
+                    <input type="text" autocomplete="off" name="valores" id="valores" class="" placeholder="" required>
+
             <h3>cliente</h3>
     <input type="text" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
     <h3>Data do Pedido</h3>
@@ -167,6 +202,9 @@
         //avista
             if(tipoPagamneto == 'avista'){
          document.querySelector('form').innerHTML=`
+                 <input type="text" autocomplete="off" name="Servicos" id="Servicos" class="" placeholder="" required>
+                    <input type="text" autocomplete="off" name="valores" id="valores" class="" placeholder="" required>
+
             <h3>cliente</h3>
     <input type="text" name="client" id="client" class="no-line" placeholder="digite nome do cliente" required>
     <h3>Data do Pedido</h3>
