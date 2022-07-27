@@ -1,4 +1,4 @@
-*.md
-*.txt
-index.js
-models/db.js
+metas.md
+moudePedido.txt
+db.js
+senhas.js
