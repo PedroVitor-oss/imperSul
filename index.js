@@ -4,6 +4,10 @@ const mysql = require('mysql2')
 const port =  3000;
 const bodyPar = require('body-parser');
 const dados = require('./models/Clients');
+const path = require('path');
+
+//permitindo arquivos estaticos
+app.use(express.static(path.join(__dirname,'public')))
 
 //tabelas
 const Clients = dados.Client;
@@ -26,11 +30,11 @@ app.set('views', './views');
 
 //rotas
 //entrada
-app.get('/',(req, res)=>{
-  Empresa.findAll({order:[['id','ASC']]}).then(function(empresa){
-  res.render('entrar',{empresa:empresa})
-})
-});
+  app.get('/',(req, res)=>{
+    Empresa.findAll({order:[['id','ASC']]}).then(function(empresa){
+    res.render('entrar',{empresa:empresa})
+  })
+  });
 app.get('/test',(req,res)=>{
   res.render('teste')
 })

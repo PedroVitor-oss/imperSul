@@ -110,7 +110,21 @@ const Empresa= db.sequelize.define('empresa',{
         type: db.Sequelize.STRING
     }
 })
-//Pagamento.sync({force:true})
+const Gastos= db.sequelize.define('gastos',{
+    tipo:{
+        type: db.Sequelize.TEXT
+    },
+    para:{
+        type: db.Sequelize.TEXT
+    },
+    valor:{
+        type: db.Sequelize.TEXT
+    },
+    dia:{
+        type:db.Sequelize.TEXT
+    },
+})
+//Gastos.sync({force:true})
 
 
  module.exports = {Client,Servico,Vendas,Pagamento,Empresa}
