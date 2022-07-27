@@ -1,4 +1,4 @@
-const db = require('./db')
+const db = require('./bancDado')
 
 const Pagamento = db.sequelize.define('pagamento',{
     client:{
