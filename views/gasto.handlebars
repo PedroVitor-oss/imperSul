@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="/css/gastos.css">
+
+<div class="add">
+    <h2>adicionar</h2>
+    <div>
+        <h2>gasto</h2>
+
+             <form action="/createGastos?t=g" method="POST">
+                <button type="submit">
+                    <ion-icon name="add-outline"></ion-icon>
+                </button>
+             </form>
+             
+  
+    </div>
+    <div>
+        <h2>pessoa</h2>
+        <form action="/createGastos?t=p" method="POST">
+                <button type="submit">
+                    <ion-icon name="add-outline"></ion-icon>
+                </button>
+             </form>
+        
+    </div>
+</div>
+<header>
+    <main>
+    <h1>gastos</h1>
+    
+   
+    </main>
+</header>
+<section>
+    <main>
+        <div class="relatoriGeral">
+            <div class="separacao">
+            <div class="dados"></div>
+            </div>
+            <div class="separacao">
+            <div id="dadosInText">
+                
+
+            </div>
+            </div>
+        </div>
+    </main>
+</section>
+<!--icones-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<!--jquery-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!-- caregando banco de dados-->
+<script>
+    let gastos = []
+    {{#each gastos}}
+        gastos.push({
+            tipo: "{{dataValues.tipo}}",
+            para: '{{dataValues.para}}',
+            valor: {{dataValues.valor}},
+            dia:  "{{dataValues.dia}}",
+        })
+        {{/each}}
+</script>
+<!--principal-->
+<script>
+ let data = new Date();
+ let mes = data.getMonth()+1;
+ mes = String(mes);
+ if(mes.length == 1){
+    mes = '0'+mes
+ }
+
+
+let soma = 0;
+ for(g of gastos){
+    
+    mesG = g.dia[3]+g.dia[4]
+
+    if(mesG == mes){
+        valor = Number(g.valor);
+        $('.dados').append(`<div><h2>`+g.para+` valor: R$ `+valor+`,00</h2></div>`)
+        soma+=valor;
+    }
+ }
+ $("#dadosInText").append(`<h2>soma de gasto do mes R$ `+soma+`,00</h2>`)
+</script>

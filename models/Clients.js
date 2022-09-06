@@ -123,8 +123,35 @@ const Gastos= db.sequelize.define('gastos',{
     dia:{
         type:db.Sequelize.TEXT
     },
+    describe:{
+        type:db.Sequelize.TEXT
+    }
 })
-//Gastos.sync({force:true})
+const Pgastos= db.sequelize.define('Pgastos',{
+    nome:{
+        type: db.Sequelize.TEXT
+    },
+    numero:{
+        type: db.Sequelize.TEXT
+    },
+    cpf:{
+        type: db.Sequelize.TEXT
+    },
+    empresa:{
+        type:db.Sequelize.TEXT
+    },
+    tipo:{
+        type:db.Sequelize.TEXT
+    },
+
+})
+// Gastos.sync({force:true})
+// Client.sync({force:true})
+// Servico.sync({force:true})
+// Vendas.sync({force:true})
+// Pagamento.sync({force:true})
+// Empresa.sync({force:true})
+// Pgastos.sync({force:true})
 
 
- module.exports = {Client,Servico,Vendas,Pagamento,Empresa}
+ module.exports = {Client,Servico,Vendas,Pagamento,Empresa,Gastos,Pgastos}

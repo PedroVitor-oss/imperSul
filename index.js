@@ -15,6 +15,8 @@ const Servicos = dados.Servico;
 const Vendas = dados.Vendas;
 const Pagamento = dados.Pagamento;
 const Empresa = dados.Empresa;
+const Gastos = dados.Gastos;
+const Pgastos = dados.Pgastos;
 
 //configurar body parser
 app.use(express.json({limit: '20mb'}));
@@ -35,8 +37,52 @@ app.set('views', './views');
     res.render('entrar',{empresa:empresa})
   })
   });
-app.get('/test',(req,res)=>{
-  res.render('teste')
+  app.post('/addPessoaGasto',(req,res)=>{
+    console.log(req.body.empresa)
+    Pgastos.create({
+      nome:req.body.nome,
+      numero:req.body.numero,
+      cpf:req.body.cpf,
+      empresa:req.body.empresa,
+      tipo:req.body.tipo
+    }).then(
+      res.render('certo')
+    )
+  })
+  app.post('/addPessoaGasto',(req,res)=>{
+    
+    Pgastos.create({
+      nome:req.body.nome,
+      numero:req.body.numero,
+      cpf:req.body.cpf,
+      empresa:req.body.empresa,
+      tipo:req.body.tipo
+    }).then(
+      res.render('certo')
+    )
+  })
+  app.post("/addGasto",(req,res)=>{
+    Gastos.create({
+      tipo:req.body.tipo,
+      para:req.body.para,
+      valor:req.body.valor,
+      dia:req.body.data,
+      describe:req.body.describe
+    }).then(
+      res.render('certo')
+    )
+  })
+  app.post('/createGastos',(req,res)=>{
+    Gastos.findAll({order:[['id','DESC']]}).then(function(gastos){
+      Pgastos.findAll({order:[['id','DESC']]}).then(function(Pgastos){
+        res.render('addGastos',{gastos:gastos,Pgastos:Pgastos})
+      })
+    })
+  })
+app.post('/gastos',(req,res)=>{
+  Gastos.findAll({order:[['id','DESC']]}).then(function(gastos){
+  res.render('gasto',{gastos:gastos})
+  })
 })
 //home
 app.post('/home', (req, res)=>{

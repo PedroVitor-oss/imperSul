@@ -257,12 +257,17 @@ if(quantParcela != null){
                  var data = new Date();
                  var mes     = data.getMonth()+1;
                   var ano    = data.getFullYear();
+                  var dia = data.getDate();
+                  dia = String(dia);
+                  if(dia.length == 1){
+                    dia = '0'+dia
+                  }
                  let newmes =mes+i
                  if(newmes>12){
                  newmes = newmes-12
                  ano+=1
                  }
-                datasVenc.value+= '18/'+newmes+'/'+ano+','
+                datasVenc.value+= dia+'/'+newmes+'/'+ano+','
                 //valor de cada parcela
                 let valorPorParcela = valorTotal/quantas
                 let newValorPorParcela = '';
