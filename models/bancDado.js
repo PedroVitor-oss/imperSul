@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const senhas = require("../public/js/senhas.js")
 // conecsão com banco de dados
-//mysql://b753c8670bc720:0fecf53b@us-cdbr-east-06.cleardb.net/heroku_27e9fb24f303c5e?reconnect=true
-const sequelize = new Sequelize(senhas.bdName,'b753c8670bc720','0fecf53b',{
+// mysql://b2d87d059167b7:850bf5a0@us-cdbr-east-06.cleardb.net/heroku_b9e5958297b1f74?reconnect=true
+const sequelize = new Sequelize('heroku_b9e5958297b1f74','b2d87d059167b7','850bf5a0',{
     host:'us-cdbr-east-06.cleardb.net',
     dialect:'mysql',
 });
