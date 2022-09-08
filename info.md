@@ -6,4 +6,5 @@ TRUNCATE TABLE <nome da tabela>;
 # deletar tabela
 DROP TABLE <nome da tabela>;
 # editar dados de tabela
-UPDATE <nome da tabela> SET <nome do item > = "Diego Macêdo" WHERE `id` = <id da linha que quer trocar>;
+UPDATE <nome da tabela> SET <nome do item > = "Diego Macêdo" WHERE `id` = <id da linha que quer trocar>
+funcionou a troca de repositorio
