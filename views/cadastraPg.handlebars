@@ -61,7 +61,7 @@
    <select name="tipoPagamneto"  id="tipoPagamneto" class="no-line"required>
         <option>avista</option>
         <option>parcela</option>
-   </select>
+   </select>    
    <div id="parcela" style="width:100%"></div>
     <h3>Vencimento</h3>
     <input type="date" autocomplete="off" name="Vencimento" class="no-line" placeholder="" >
@@ -71,9 +71,11 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<!--caregar dados-->
 <script>
     let vendas =[];
-    let client = ''
+    let pedidos = [];
+    let client = '';
     let dataCreate ;
     let dataVencimento;
     let numeros = ['1','2','3','4','5','6','7','8','9','0']
@@ -89,22 +91,29 @@
   id:'{{dataValues.id}}',
 })
     {{/each}};
+</script>
+<!--gerar pedidos-->
+<script src="/js/gerarPedidos.js"></script>
+<!--principal-->
+<script>
+     colocarVendas();
+     pedidosIguais()
     // definir nome do cliete e data do pedido
     function definirClient()
     {
-       for(venda of vendas){
-      let urlParams = new URLSearchParams(window.location.search);
-      let id = urlParams.get("id");
-     
-    if(venda.id == id){
-        client = venda.cliente;
-        document.querySelector('#client').value = venda.cliente
-        dataCreate = venda.dataCreate;
-        document.querySelector('#dataPedido').value = venda.dataCreate
-        dataVencimento = venda.dataEntrega;
-        break;
-    }
-} 
+        for(venda of pedidos){
+            
+            let urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get("id");
+            if(venda.id == id){
+                client = venda.cliente;
+                document.querySelector('#client').value = venda.cliente
+                dataCreate = venda.dataCreate;
+                document.querySelector('#dataPedido').value = venda.dataCreate
+                dataVencimento = venda.dataEntrega;
+                break;
+            }
+        } 
     }
 
 

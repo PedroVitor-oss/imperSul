@@ -205,9 +205,8 @@ console.log(empresa)
     //cliente
   let urlParams = new URLSearchParams(window.location.search);
    let id = urlParams.get("id");
-   console.log(pedidos)
    console.log(pedidos[Number(id)-1],"pedido escolhido");
-
+   
    document.querySelector('body').innerHTML+=`
     <header class="cliet" style="margin-bottom: 45px;">
   <H2>cliente: `+pedidos[Number(id)-1].cliente+`</H2>

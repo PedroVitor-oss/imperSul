@@ -4,6 +4,9 @@
   let pedidos = []
   let pagamentos = []
   let empresa ;
+
+  let aparecer = "aparecer"
+    
   let container = [
 //home    
 {
@@ -159,19 +162,8 @@ function mostraInfoPessoa(i){
   i. style.justifyContent = "";
       i.style.alignItems = ""
       i.style.flexDirection = ""
-  i.innerHTML = `
-  <ion-icon name="person-circle-outline"></ion-icon>
-<h3>`+pessoa.nome+`</h3><br>
-<h4>telefone: `+pessoa.telefone+`</h4>
-<button onclick="deletarPessoa(`+pessoa.id+`)">
-  <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
-</button>
+  i.innerHTML = itemPessoa(pessoa,"cont");
 
-<form action="/cadastraPedido?id=`+pessoa.id+`" method="post">
-<button type="submit">
-<ion-icon name="hammer-outline" class="aparecer blue" id="`+pessoa.nome+`" ></ion-icon>
-</button>
-</form>`;
   }else{
     console.log('adicionar')
       i.style.display = "flex"
@@ -200,7 +192,7 @@ function mudarconteudo(i){
             if(i.id == 'serviços')
             colocarSevicos();
             if(i.id == 'home')
-            colocarPedidos()
+            mostraAllPedidos()
              if(i.id == 'vendas')
             mostraAllPedidos()
             if(i.id == 'pagamentos')
@@ -268,7 +260,7 @@ function colocarSevicos(){
      <h4>valor: R$`+item.valor+`</h4>
     
      <button onclick="deletarServico(`+item.id+`)">
-     <ion-icon  name="trash-outline" class="red aparecer"></ion-icon>
+     <ion-icon  name="trash-outline" class="red `+aparecer+`"></ion-icon>
      </button>
      
      </div>
@@ -276,7 +268,7 @@ function colocarSevicos(){
      `
     }
 }
- function  deletarServico(id){
+ function deletarServico(id){
 document.querySelector('body').innerHTML+=`
 <div class="fosco">
 <div class="b-branco">
@@ -297,7 +289,8 @@ document.querySelector('.fosco').remove()
 function converterVendas(){
   for(pagamento of pagamentos){
 if(pagamento.tipoPagamento == 'parcela'){
-    pagamento.Vencimento = Array(pagamento.Vencimento)
+    pagamento.Vencimento = newArray(pagamento.Vencimento);
+    
   } 
  }
 }
@@ -373,20 +366,50 @@ function dataPagamento(){
   ver = "entrega"
 }
 
-function itemPessoa(i){
-    let nome = i.nome
-return `<div ondblclick="mostraInfoPessoa(this)" id="`+clients.indexOf(i)+`">
-<ion-icon name="person-circle-outline"></ion-icon>
-<h3>`+i.nome+`</h3><br>
-<h4>telefone: `+i.telefone+`</h4>
-<button onclick="deletarPessoa(`+i.id+`)">
-  <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
-</button>
+function itemPessoa(i,cont){
+  
+    if(cont == undefined||cont == ""){
+      return `
+        <div ondblclick="mostraInfoPessoa(this)" id="`+clients.indexOf(i)+`">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <h3>`+i.nome+`</h3><br>
+          <h4>telefone: `+i.telefone+`</h4>
+          <button onclick="deletarPessoa(`+i.id+`)">
+            <ion-icon class="red `+aparecer+`" id="" name="trash-outline"></ion-icon>
+          </button>
 
-<form action="/cadastraPedido?id=`+i.id+`" method="post">
-<button type="submit">
-<ion-icon name="hammer-outline" class="aparecer blue" id="`+i.nome+`" ></ion-icon>
-</button>
-</form>
-</div>`
+          <form action="/cadastraPedido?id=`+i.id+`" method="post">
+            <button type="submit">
+              <ion-icon name="hammer-outline" class="`+aparecer+` blue" id="`+i.nome+`" ></ion-icon>
+            </button>
+          </form>
+        </div>`
+}else{
+  return `
+  <ion-icon name="person-circle-outline"></ion-icon>
+  <h3>`+i.nome+`</h3><br>
+  <h4>telefone: `+i.telefone+`</h4>
+  <button onclick="deletarPessoa(`+i.id+`)">
+    <ion-icon class="red aparecer" id="" name="trash-outline"></ion-icon>
+  </button>
+
+  <form action="/cadastraPedido?id=`+i.id+`" method="post">
+    <button type="submit">
+      <ion-icon name="hammer-outline" class="aparecer blue" id="`+i.nome+`" ></ion-icon>
+    </button>
+  </form>
+  `
 }
+}
+function newArray(t){
+  let array = [];
+  let item = '';
+  for(let i = 0;i<t.length;i++){
+    if(t[i]!=','){
+      item+= t[i];
+    }else{
+      array.push(item);
+    }
+  }
+  return array;
+} 
