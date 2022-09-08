@@ -247,13 +247,32 @@ for(pedido of pedidos)
 <!--tamanho de tela-->
 <script>
     var windowWidth = window.innerWidth;
-  if(windowWidth <= 650){
-celular( )
+    function checkDevice() { 
+    if( navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)
+    ){
+       return true; // está utilizando celular
+     }
+    else {
+       return false; // não é celular
+     }
+   }
+   if(checkDevice()){
+    alert("celular");
+   }
+  
+  if(checkDevice()){
+    celular( )
   }else{
     console.log('computador')
   }
   function celular(){
-     let container = document.querySelector('#containe-principal');
+    let container = document.querySelector('#containe-principal');
     let controles = document.querySelector('.navigation')
     let  comTitle = document.querySelectorAll('.navigation ul li .title') 
     let ul = document.querySelector('.navigation ul')
