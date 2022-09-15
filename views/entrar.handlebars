@@ -79,6 +79,13 @@ transform: rotate(330deg)
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="/js/senhas.js"></script>
 <script>
+    if(checkDevice()){
+        form = document.querySelector(".formulario");
+        form.style.scale = "2";
+        
+    }
+</script>
+<script>
 function entrar(){
 let form = document.querySelector('form');
 let senha = document.querySelector('input').value;
@@ -97,6 +104,7 @@ if(senha == empresa.senha){
 }
 } 
 </script>
+
 <!--dados-->
 <script>
     let empresa = {senha:senhas.login};

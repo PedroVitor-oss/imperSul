@@ -76,25 +76,8 @@
 <!--tamanho de tela-->
 <script>
    
-    function checkDevice() { 
-    if( navigator.userAgent.match(/Android/i)
-    || navigator.userAgent.match(/webOS/i)
-    || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
-    || navigator.userAgent.match(/iPod/i)
-    || navigator.userAgent.match(/BlackBerry/i)
-    || navigator.userAgent.match(/Windows Phone/i)
-    ){
-       return true; // está utilizando celular
-     }
-    else {
-       return false; // não é celular
-     }
-   }
-   if(checkDevice()){
-    alert("celular");
-   }
-  
+    
+
   if(checkDevice()){
     celular( )
     
@@ -117,7 +100,9 @@
   controles.style.left ="0";
   // box-shadow:
   controles.style.boxShadow = "0 0px 15px rgba(0,0,0,0.5);"
-  controles.style.borderRadius = "0"
+  controles.style.borderRadius = "0";
+  controles.style.scale = "2";
+  controles.style.transform = "translateX(-20px) translateY(55px)"
   //ul
   ul.style.display = "flex";
   ul.style.justifyContent = "center"
@@ -128,9 +113,13 @@
 
   //container
   container.style.left ="0";
-  container.style.width = "100%"
+  container.style.width = "51%"
   container.style.height = "85%"
-  container.style.borderRadius = "0"
+  container.style.scale = "2";
+  container.style.transform = "translatex(122px) translateY(380px)"
+  container.style.borderRadius = "0";
+  //title header
+  document.querySelector("header h1").style.transform = "translateY(90px)"
   //input
   input.style.marginLeft = "10px"
   
