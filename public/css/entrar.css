@@ -1,0 +1,60 @@
+body{
+    
+    min-height: 100vh;
+    background-color: #2E66FF;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+ul{
+    margin:0;
+    padding: 0;
+}
+.formulario {
+    position: absolute;
+    left: 40%;
+    top:30%;
+}
+.formulario button{
+    width: 40px;
+    height: 40px;
+    border-radius:50% ;
+    background:#FFD400;
+    border:0 solid transparent;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.formulario button:hover{
+transform: rotate(330deg)
+}
+
+.formulario button ion-icon{
+    font-size: 25px;
+    transform: rotate(40deg);
+}
+.formulario input{
+    height: 25px;
+    color: white;
+    background: transparent;
+    outline: none;
+    border:none;
+    border-bottom: 2px solid white;
+    font-size: 20px;
+}
+.formulario input::placeholder{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+}
+
+.ondas{
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    
+}
+
