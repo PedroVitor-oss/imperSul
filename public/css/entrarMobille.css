@@ -32,7 +32,8 @@ font-size: 65px;
     border:0 solid transparent;
     cursor: pointer;
     transition: 0.5s;
-    margin-left: 205px;
+    position:relative;
+    left:30%;
     scale:2;
 }
 
